@@ -1,7 +1,18 @@
 Ruby::Enum
 ==========
 
+[![Build Status](https://travis-ci.org/dblock/ruby-enum.png)](https://travis-ci.org/dblock/ruby-enum)
+
 A handy library for defining enums in Ruby.
+
+### Contributing
+
+You're encouraged to contribute to this gem.
+
+* Fork this project.
+* Make changes, write tests.
+* Updated CHANGELOG.
+* Make a pull request, bonus points for topic branches.
 
 ### Copyright and License
 

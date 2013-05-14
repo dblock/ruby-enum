@@ -5,6 +5,17 @@ Ruby::Enum
 
 A handy library for defining enums in Ruby.
 
+### Usage
+
+``` ruby
+class Colors
+  include Ruby::Enum
+
+  define :RED, "red"
+  define :GREEN, "green"
+end
+```
+
 ### Contributing
 
 You're encouraged to contribute to this gem.

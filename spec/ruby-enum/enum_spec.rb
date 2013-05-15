@@ -12,6 +12,9 @@ describe Ruby::Enum do
     Colors::RED.should eq "red"
     Colors::GREEN.should eq "green"
   end
+  it "breaks on error" do
+    expect { Colors::ANYTHING }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+  end
   context "parse" do
     it "parses exact value" do
       Colors.parse("red").should == Colors::RED

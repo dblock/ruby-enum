@@ -1,0 +1,14 @@
+en:
+  ruby:
+    enum:
+      errors:
+        messages:
+          uninitialized_constant:
+            message: "Uninitialized constant."
+            summary: "The constant %{name}::%{key} has not been defined."
+            resolution: "The enumerated value could not be found in class %{name}. Use 'define' to declare it.\n
+            \_Example:\n
+            \_\_module %{name}\n
+            \_\_\_include Ruby::Enum\n
+            \_\_\_define %{key}, 'value'\n
+            \_\_end"

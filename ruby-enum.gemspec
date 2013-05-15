@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/dblock/ruby-enum"
   s.licenses = [ "MIT" ]
   s.summary = "Enum-like behavior for Ruby."
+  s.add_dependency "i18n"
 end

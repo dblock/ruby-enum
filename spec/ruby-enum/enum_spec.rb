@@ -44,4 +44,14 @@ describe Ruby::Enum do
       Colors.parse("invalid").should be_nil
     end
   end
+  context "#keys" do
+    it "returns keys" do
+      Colors.keys.should == [ :RED, :GREEN ]
+    end
+  end
+  context "#values" do
+    it "returns values" do
+      Colors.values.should == [ "red", "green" ]
+    end
+  end
 end

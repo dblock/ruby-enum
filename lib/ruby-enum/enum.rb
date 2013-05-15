@@ -14,6 +14,11 @@ module Ruby
 
     module ClassMethods
 
+      # Define an enumerated value.
+      #
+      # === Parameters
+      # [key] Enumerator key.
+      # [value] Enumerator value.
       def define(key, value)
         @_enum_hash ||= {}
         @_enum_hash[key] = self.new(key, value)
@@ -27,20 +32,38 @@ module Ruby
         end
       end
 
+      # Iterate over all enumerated values.
+      # Yields a key and an enumerated instance.
       def each(&block)
         @_enum_hash.each do |key, value|
           yield key, value
         end
       end
 
+      # Attempt to parse an enumerated value.
+      #
+      # === Parameters
+      # [s] The string to parse.
+      #
+      # Returns an enumerated value or nil.
       def parse(s)
         s = s.to_s.upcase
-        each do |key, value|
+        each do |key, enum|
           if key.to_s.upcase == s
-            return value.value
+            return enum.value
           end
         end
         nil
+      end
+
+      # Returns all enum keys.
+      def keys
+        @_enum_hash.values.map(&:key)
+      end
+
+      # Returns all enum values.
+      def values
+        @_enum_hash.values.map(&:value)
       end
 
     end

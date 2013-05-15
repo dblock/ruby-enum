@@ -16,6 +16,14 @@ class Colors
 end
 ```
 
+### Referencing
+
+``` ruby
+Colors::RED # "red"
+Colors::GREEN # "green"
+Colors::UNDEFINED # raises Ruby::Enum::Errors::UninitializedConstantError
+```
+
 ### Iterating
 
 ``` ruby
@@ -31,12 +39,11 @@ You're encouraged to contribute to this gem.
 
 * Fork this project.
 * Make changes, write tests.
-* Updated CHANGELOG.
+* Updated [CHANGELOG](CHANGELOG.md).
 * Make a pull request, bonus points for topic branches.
 
 ## Copyright and License
 
-Copyright Daniel Doubrovkine and Contributors, 2013
+Copyright (c) 2013, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
 
-[MIT License](LICENSE.md)
-
+This project is licensed under the [MIT License](LICENSE.md).

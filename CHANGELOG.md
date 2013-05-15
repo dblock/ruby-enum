@@ -5,4 +5,4 @@
 
 ### 0.1.0 (5/14/2013)
 
-* Initial public release - [@dblock](https://github.com/dblock).
+* Initial public release, live-coded during [May 2013 NYC.rb](http://code.dblock.org/your-first-ruby-gem) - [@dblock](https://github.com/dblock).

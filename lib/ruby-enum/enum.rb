@@ -2,7 +2,7 @@ module Ruby
   module Enum
 
     attr_reader :key, :value
-    
+
     def initialize(key, value)
       @key = key
       @value = value
@@ -15,20 +15,20 @@ module Ruby
     module ClassMethods
 
       def define(key, value)
-        @hash ||= {}
-        @hash[key] = self.new(key, value)
+        @_enum_hash ||= {}
+        @_enum_hash[key] = self.new(key, value)
       end
 
       def const_missing(key)
-        if @hash[key]
-          @hash[key].value
+        if @_enum_hash[key]
+          @_enum_hash[key].value
         else
           raise Ruby::Enum::Errors::UninitializedConstantError.new({ :name => name, :key => key })
         end
       end
 
       def each(&block)
-        @hash.each do |key, value|
+        @_enum_hash.each do |key, value|
           yield key, value
         end
       end
@@ -41,7 +41,7 @@ module Ruby
           end
         end
         nil
-      end      
+      end
 
     end
 

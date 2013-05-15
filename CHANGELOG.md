@@ -1,3 +1,7 @@
+### 0.3.0 (Next Release)
+
+* Your contribution here.
+
 ### 0.2.0 (5/15/2013)
 
 * Added `Ruby::Enum#values`, `Ruby::Enum#keys` and `Ruby::Enum#to_h` - [@dblock](https://github.com/dblock).

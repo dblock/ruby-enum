@@ -1,5 +1,5 @@
 module Ruby
   module Enum
-    VERSION = '0.3.0'
+    VERSION = '0.2.1'
   end
 end

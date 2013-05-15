@@ -2,7 +2,7 @@
 
 * Your contribution here.
 
-### 0.2.0 (5/15/2013)
+### 0.2.1 (5/15/2013)
 
 * Added `Ruby::Enum#values`, `Ruby::Enum#keys` and `Ruby::Enum#to_h` - [@dblock](https://github.com/dblock).
 * A `Ruby::Enum::Errors::UninitializedConstantError` will now be raised when referencing an undefined enum - [@dblock](https://github.com/dblock).

@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email = "dblock@dblock.org"
   s.platform = Gem::Platform::RUBY
   s.required_rubygems_version = '>= 1.3.6'
-  s.files = Dir['*']
+  s.files = Dir['**/*']
   s.require_paths = [ "lib" ]
   s.homepage = "http://github.com/dblock/ruby-enum"
   s.licenses = [ "MIT" ]

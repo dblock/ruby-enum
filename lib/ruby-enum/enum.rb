@@ -66,6 +66,12 @@ module Ruby
         @_enum_hash.values.map(&:value)
       end
 
+      def to_h
+        Hash[@_enum_hash.map do |key, enum|
+          [ key, enum.value ]
+        end]
+      end
+
     end
 
   end

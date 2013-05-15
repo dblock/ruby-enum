@@ -24,6 +24,7 @@ Colors::GREEN # "green"
 Colors::UNDEFINED # raises Ruby::Enum::Errors::UninitializedConstantError
 Colors.keys # [ :RED, :GREEN ]
 Colors.values # [ "red", "green" ]
+Colors.to_h # { :RED => "red", :GREEN => "green" }
 ```
 
 ### Iterating

@@ -54,4 +54,9 @@ describe Ruby::Enum do
       Colors.values.should == [ "red", "green" ]
     end
   end
+  context "#to_h" do
+    it "returns a hash of key:values" do
+      Colors.to_h.should == { :RED => "red", :GREEN => "green" }
+    end
+  end
 end

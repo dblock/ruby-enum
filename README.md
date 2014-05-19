@@ -36,6 +36,18 @@ Colors.each do |key, enum|
 end
 ```
 
+### Mapping
+
+``` ruby
+Colors.map do |key, enum|
+  # key and enum.key is :RED, :GREEN
+  # enum.value is "red", "green"
+  [enum.value, key]
+end
+
+# => [ ['red', :RED], ['green', :GREEN] ]
+```
+
 ## Contributing
 
 You're encouraged to contribute to this gem.

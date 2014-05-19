@@ -1,6 +1,5 @@
 module Ruby
   module Enum
-
     attr_reader :key, :value
 
     def initialize(key, value)
@@ -13,7 +12,6 @@ module Ruby
     end
 
     module ClassMethods
-
       # Define an enumerated value.
       #
       # === Parameters
@@ -21,20 +19,20 @@ module Ruby
       # [value] Enumerator value.
       def define(key, value)
         @_enum_hash ||= {}
-        @_enum_hash[key] = self.new(key, value)
+        @_enum_hash[key] = new(key, value)
       end
 
       def const_missing(key)
         if @_enum_hash[key]
           @_enum_hash[key].value
         else
-          raise Ruby::Enum::Errors::UninitializedConstantError.new({ :name => name, :key => key })
+          fail Ruby::Enum::Errors::UninitializedConstantError.new(name: name, key: key)
         end
       end
 
       # Iterate over all enumerated values.
       # Yields a key and an enumerated instance.
-      def each(&block)
+      def each(&_block)
         @_enum_hash.each do |key, value|
           yield key, value
         end
@@ -49,9 +47,7 @@ module Ruby
       def parse(s)
         s = s.to_s.upcase
         each do |key, enum|
-          if key.to_s.upcase == s
-            return enum.value
-          end
+          return enum.value if key.to_s.upcase == s
         end
         nil
       end
@@ -68,11 +64,9 @@ module Ruby
 
       def to_h
         Hash[@_enum_hash.map do |key, enum|
-          [ key, enum.value ]
+          [key, enum.value]
         end]
       end
-
     end
-
   end
 end

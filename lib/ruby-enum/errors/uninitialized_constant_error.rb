@@ -3,7 +3,7 @@ module Ruby
     module Errors
       class UninitializedConstantError < Base
         def initialize(attrs)
-          super(compose_message("uninitialized_constant", attrs))
+          super(compose_message('uninitialized_constant', attrs))
         end
       end
     end

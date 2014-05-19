@@ -1,3 +1,7 @@
+### Next
+
+* Your contribution here.
+
 ### 0.3.0 (5/19/2014)
 
 * Added `Ruby::Enum#map` - [@ArnaudRinquin](https://github.com/ArnaudRinquin).

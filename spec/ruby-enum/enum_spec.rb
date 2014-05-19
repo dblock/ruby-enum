@@ -30,6 +30,16 @@ describe Ruby::Enum do
       enum_values.should eq %w(red green)
     end
   end
+  context '#map' do
+    it 'maps constants' do
+      key_key_values = Colors.map do |key, enum|
+        [key, enum.key, enum.value]
+      end
+      key_key_values.count.should eq 2
+      key_key_values[0].should eq [:RED, :RED, 'red']
+      key_key_values[1].should eq [:GREEN, :GREEN, 'green']
+    end
+  end
   context '#parse' do
     it 'parses exact value' do
       Colors.parse('red').should == Colors::RED

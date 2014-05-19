@@ -38,6 +38,14 @@ module Ruby
         end
       end
 
+      # Map all enumerated values.
+      # Yields a key and an enumerated instance.
+      def map(&_block)
+        @_enum_hash.map do |key, value|
+          yield key, value
+        end
+      end
+
       # Attempt to parse an enumerated value.
       #
       # === Parameters

@@ -8,6 +8,7 @@ module Ruby
     end
 
     def self.included(base)
+      base.extend Enumerable
       base.extend ClassMethods
     end
 
@@ -31,19 +32,9 @@ module Ruby
       end
 
       # Iterate over all enumerated values.
-      # Yields a key and an enumerated instance.
-      def each(&_block)
-        @_enum_hash.each do |key, value|
-          yield key, value
-        end
-      end
-
-      # Map all enumerated values.
-      # Yields a key and an enumerated instance.
-      def map(&_block)
-        @_enum_hash.map do |key, value|
-          yield key, value
-        end
+      # Required for Enumerable mixin
+      def each(&block)
+        @_enum_hash.each(&block)
       end
 
       # Attempt to parse an enumerated value.

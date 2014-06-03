@@ -2,6 +2,8 @@
 
 * Your contribution here.
 
+* Mixed in `Enumerable` - [@kgann](https://github.com/kgann).
+
 ### 0.3.0 (5/19/2014)
 
 * Added `Ruby::Enum#map` - [@ArnaudRinquin](https://github.com/ArnaudRinquin).

@@ -27,7 +27,9 @@ Colors.values # [ "red", "green" ]
 Colors.to_h # { :RED => "red", :GREEN => "green" }
 ```
 
-### Iterating
+### All `Enumerable` methods are supported.
+
+#### Iterating
 
 ``` ruby
 Colors.each do |key, enum|
@@ -36,7 +38,7 @@ Colors.each do |key, enum|
 end
 ```
 
-### Mapping
+#### Mapping
 
 ``` ruby
 Colors.map do |key, enum|
@@ -46,6 +48,29 @@ Colors.map do |key, enum|
 end
 
 # => [ ['red', :RED], ['green', :GREEN] ]
+```
+
+#### Reducing
+
+``` ruby
+Colors.reduce([]) do |arr, (key, enum)|
+  # key and enum.key is :RED, :GREEN
+  # enum.value is "red", "green"
+  arr << [enum.value, key]
+end
+
+# => [ ['red', :RED], ['green', :GREEN] ]
+```
+
+#### Sorting
+``` ruby
+Colors.sort_by do |key, enum|
+  # key and enum.key is :RED, :GREEN
+  # enum.value is "red", "green"
+  enum.value
+end
+
+# => [ [:GREEN, #<Colors:...>], [:RED, #<Colors:...>] ]
 ```
 
 ## Contributing

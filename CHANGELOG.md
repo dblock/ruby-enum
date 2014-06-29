@@ -4,11 +4,11 @@
 
 ### 0.4.0 (6/29/2014)
 
-* Mixed in `Enumerable` - [@kgann](https://github.com/kgann).
+* [#5](https://github.com/dblock/ruby-enum/pull/5): Mixed in `Enumerable` - [@kgann](https://github.com/kgann).
 
 ### 0.3.0 (5/19/2014)
 
-* Added `Ruby::Enum#map` - [@ArnaudRinquin](https://github.com/ArnaudRinquin).
+* [#4](https://github.com/dblock/ruby-enum/pull/4): Added `Ruby::Enum#map` - [@ArnaudRinquin](https://github.com/ArnaudRinquin).
 
 ### 0.2.1 (5/15/2013)
 

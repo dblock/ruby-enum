@@ -1,6 +1,4 @@
-### Next
-
-* Your contribution here.
+### 0.4.0 (6/29/2014)
 
 * Mixed in `Enumerable` - [@kgann](https://github.com/kgann).
 

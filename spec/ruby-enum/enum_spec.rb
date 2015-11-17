@@ -7,17 +7,6 @@ class Colors
   define :GREEN, 'green'
 end
 
-# A test class that includes CONSTANT_CASE with underscores
-class X11Colors
-  include Ruby::Enum
-
-  define :ALICE_BLUE, 'AliceBlue'
-  define :MEDIUM_SPRING_GREEN, 'MediumSpringGreen'
-  define :GOLD, 'gold'
-  define :GREY_51, 'grey51'
-  define :YELLOW_4, 'yellow4'
-end
-
 describe Ruby::Enum do
   it 'returns an enum value' do
     Colors::RED.should eq 'red'
@@ -63,26 +52,6 @@ describe Ruby::Enum do
     end
     it 'returns nil for an invalid value' do
       Colors.parse('invalid').should be_nil
-    end
-  end
-  context '#for_key' do
-    it 'returns enum instances for keys' do
-      X11Colors.each do |key, enum|
-        X11Colors.for_key(key).should == enum
-      end
-    end
-    it 'returns nil for an invalid key' do
-      X11Colors.for_key('invalid').should be_nil
-    end
-  end
-  context '#for_value' do
-    it 'returns enum instances for values' do
-      X11Colors.each do |_, enum|
-        X11Colors.for_value(enum.value).should == enum
-      end
-    end
-    it 'returns nil for an invalid value' do
-      X11Colors.for_value('invalid').should be_nil
     end
   end
   context '#keys' do

@@ -1,7 +1,7 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
 gemspec
 
-gem "rspec"
-gem "rake"
-gem "rubocop", "0.21.0"
+gem 'rspec'
+gem 'rake'
+gem 'rubocop', '0.35.1'

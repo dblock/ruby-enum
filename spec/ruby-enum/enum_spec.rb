@@ -13,7 +13,7 @@ describe Ruby::Enum do
     Colors::GREEN.should eq 'green'
   end
   it 'raises UninitializedConstantError on an invalid constant' do
-    expect { Colors::ANYTHING }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+    expect { Colors::ANYTHING }.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /The constant Colors::ANYTHING has not been defined./
   end
   context '#each' do
     it 'iterates over constants' do

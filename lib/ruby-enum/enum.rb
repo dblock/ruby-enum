@@ -30,7 +30,7 @@ module Ruby
         if @_enum_hash[key]
           @_enum_hash[key].value
         else
-          fail Ruby::Enum::Errors::UninitializedConstantError.new(name: name, key: key)
+          fail Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
         end
       end
 

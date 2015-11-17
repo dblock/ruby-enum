@@ -37,16 +37,17 @@ module Ruby
         @_enum_hash.each(&block)
       end
 
-      # Attempt to parse an enumerated value.
+      # Attempt to parse an enum key and return the
+      # corresponding value.
       #
       # === Parameters
-      # [s] The string to parse.
+      # [k] The key string to parse.
       #
-      # Returns an enumerated value or nil.
-      def parse(s)
-        s = s.to_s.upcase
+      # Returns the corresponding value or nil.
+      def parse(k)
+        k = k.to_s.upcase
         each do |key, enum|
-          return enum.value if key.to_s.upcase == s
+          return enum.value if key.to_s.upcase == k
         end
         nil
       end

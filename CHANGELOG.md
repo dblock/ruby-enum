@@ -1,6 +1,7 @@
 ### Next
 
 * Your contribution here.
+* [#8](https://github.com/dblock/ruby-enum/pull/8): Added `Ruby::Enum#key`, `Ruby::Enum#value`, `Ruby::Enum#key?`, and `Ruby::Enum#value?` - [@dmolesUC3](https://github.com/dmolesUC3).
 
 ### 0.4.0 (6/29/2014)
 

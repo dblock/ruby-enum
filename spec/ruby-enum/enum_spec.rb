@@ -54,6 +54,46 @@ describe Ruby::Enum do
       Colors.parse('invalid').should be_nil
     end
   end
+  context '#key?' do
+    it 'returns true for valid keys' do
+      Colors.keys.each do |key|
+        Colors.key?(key).should == true
+      end
+    end
+    it 'returns false for invalid keys' do
+      Colors.key?(:NOT_A_KEY).should == false
+    end
+  end
+  context '#value' do
+    it 'returns string values for keys' do
+      Colors.each do |key, enum|
+        Colors.value(key).should == enum.value
+      end
+    end
+    it 'returns nil for an invalid key' do
+      Colors.value(:NOT_A_KEY).should be_nil
+    end
+  end
+  context '#value?' do
+    it 'returns true for valid values' do
+      Colors.values.each do |value|
+        Colors.value?(value).should == true
+      end
+    end
+    it 'returns false for invalid values' do
+      Colors.value?('I am not a value').should == false
+    end
+  end
+  context '#key' do
+    it 'returns enum instances for values' do
+      Colors.each do |_, enum|
+        Colors.key(enum.value).should == enum.key
+      end
+    end
+    it 'returns nil for an invalid value' do
+      Colors.key('invalid').should be_nil
+    end
+  end
   context '#keys' do
     it 'returns keys' do
       Colors.keys.should == [:RED, :GREEN]

@@ -76,6 +76,50 @@ end
 # => [ [:GREEN, #<Colors:...>], [:RED, #<Colors:...>] ]
 ```
 
+### Several hash-like methods are supported.
+
+#### Retrieving keys and values
+
+``` ruby
+Colors.keys
+# => [:RED, :GREEN]
+
+Colors.values
+# => ["red", "green"]
+```
+
+#### Mapping keys to values
+
+``` ruby
+Colors.key?(:RED)
+# => true
+
+Colors.value(:RED)
+# => "red" 
+
+Colors.key?(:BLUE)
+# => false
+
+Colors.value(:BLUE)
+# => nil 
+```
+ 
+#### Mapping values to keys
+
+``` ruby
+Colors.value?('green')
+# => true
+
+Colors.key('green')
+# => :GREEN
+
+Colors.value?('yellow')
+# => false
+
+Colors.key('yellow')
+# => nil 
+```
+
 ## Contributing
 
 You're encouraged to contribute to this gem.

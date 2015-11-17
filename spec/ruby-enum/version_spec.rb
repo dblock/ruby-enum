@@ -2,6 +2,6 @@ require 'spec_helper'
 
 describe Ruby::Enum do
   it 'has a version' do
-    Ruby::Enum::VERSION.should_not be_nil
+    expect(Ruby::Enum::VERSION).not_to be_nil
   end
 end

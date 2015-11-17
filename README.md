@@ -95,15 +95,15 @@ Colors.key?(:RED)
 # => true
 
 Colors.value(:RED)
-# => "red" 
+# => "red"
 
 Colors.key?(:BLUE)
 # => false
 
 Colors.value(:BLUE)
-# => nil 
+# => nil
 ```
- 
+
 #### Mapping values to keys
 
 ``` ruby
@@ -117,17 +117,12 @@ Colors.value?('yellow')
 # => false
 
 Colors.key('yellow')
-# => nil 
+# => nil
 ```
 
 ## Contributing
 
-You're encouraged to contribute to this gem.
-
-* Fork this project.
-* Make changes, write tests.
-* Updated [CHANGELOG](CHANGELOG.md).
-* Make a pull request, bonus points for topic branches.
+You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Copyright and License
 

@@ -20,7 +20,10 @@ module Ruby
       # [value] Enumerator value.
       def define(key, value)
         @_enum_hash ||= {}
-        @_enum_hash[key] = new(key, value)
+        @_enums_by_value ||= {}
+        new_instance = new(key, value)
+        @_enum_hash[key] = new_instance
+        @_enums_by_value[value] = new_instance
       end
 
       def const_missing(key)
@@ -50,6 +53,26 @@ module Ruby
           return enum.value if key.to_s.upcase == k
         end
         nil
+      end
+
+      # Gets the enum instance for the specified key.
+      #
+      # === Parameters
+      # [k] The string key to parse.
+      #
+      # Returns the corresponding enum instance or nil.
+      def for_key(k)
+        @_enum_hash[k]
+      end
+
+      # Gets the enum instance for the specified value.
+      #
+      # === Parameters
+      # [v] The string value to parse.
+      #
+      # Returns the corresponding enum instance or nil.
+      def for_value(v)
+        @_enums_by_value[v]
       end
 
       # Returns all enum keys.

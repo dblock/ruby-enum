@@ -129,3 +129,8 @@ You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md)
 Copyright (c) 2013-2015, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
+
+## Related Projects
+
+* [typesafe_enum](https://github.com/dmolesUC3/typesafe_enum): Typesafe enums, inspired by Java.
+* [renum](https://github.com/duelinmarkers/renum): A readable, but terse enum.

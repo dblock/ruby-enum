@@ -24,14 +24,7 @@ module Ruby
         new_instance = new(key, value)
         @_enum_hash[key] = new_instance
         @_enums_by_value[value] = new_instance
-      end
-
-      def const_missing(key)
-        if @_enum_hash[key]
-          @_enum_hash[key].value
-        else
-          fail Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
-        end
+        const_set key, value
       end
 
       # Iterate over all enumerated values.

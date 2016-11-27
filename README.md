@@ -120,6 +120,33 @@ Colors.key('yellow')
 # => nil
 ```
 
+
+## Duplicate enumerator keys or duplicate values
+
+Defining duplicate enums will raise a `Ruby::Enum::Errors::DuplicateKeyError`. Moreover a duplicate
+value is not allowed. Defining a duplicate value will raise a `Ruby::Enum::Errors::DuplicateKeyError`.
+The following declarations will both raise an exception:
+
+```ruby
+  class Colors
+    include Ruby::Enum
+
+    define :RED, "red"
+    define :RED, "my red" # will raise a DuplicateKeyError exception
+  end
+
+  # The following will raise a DuplicateValueError
+  class Colots
+    include Ruby::Enum
+
+    define :RED, 'red'
+    define :SOME, 'red' # Boom
+  end
+```
+
+The `DuplicateValueError` exception is thrown to be consistent with the unique key constraint.
+Since keys are unique there is no way to map values to keys using `Colors.key('red')`
+
 ## Contributing
 
 You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md) for details.

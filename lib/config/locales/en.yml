@@ -12,3 +12,11 @@ en:
             \_\_\_include Ruby::Enum\n
             \_\_\_define %{key}, 'value'\n
             \_\_end"
+          duplicate_key:
+            message: 'Duplicate key.'
+            summary: "The constant %{name}::%{key} has already been defined."
+            resolution: "The enumerated key is already defined in class %{name}%. Please use a different name to declare it."
+          duplicate_value:
+            message: 'Duplicate value found.'
+            summary: "The value %{value} has already been defined in %{name}%."
+            resolution: "The enumerated value %{value} is already defined in class %{name}%. Please use a different value."

@@ -109,4 +109,24 @@ describe Ruby::Enum do
       expect(Colors.to_h).to eq(RED: 'red', GREEN: 'green')
     end
   end
+
+  context 'on duplicate keys' do
+    it 'raises DuplicateKeyError' do
+      expect do
+        Colors.class_eval do
+          define :RED, 'some'
+        end
+      end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /The constant Colors::RED has already been defined./
+    end
+  end
+
+  context 'on duplicate values' do
+    it 'raises a DuplicateValueError' do
+      expect do
+        Colors.class_eval do
+          define :Other, 'red'
+        end
+      end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /The value red has already been defined./
+    end
+  end
 end

@@ -21,9 +21,25 @@ module Ruby
       def define(key, value)
         @_enum_hash ||= {}
         @_enums_by_value ||= {}
+
+        validate_key!(key)
+        validate_value!(value)
+
         new_instance = new(key, value)
         @_enum_hash[key] = new_instance
         @_enums_by_value[value] = new_instance
+      end
+
+      def validate_key!(key)
+        return unless @_enum_hash.key?(key)
+
+        fail Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
+      end
+
+      def validate_value!(value)
+        return unless @_enums_by_value.key?(value)
+
+        fail Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
       end
 
       def const_missing(key)

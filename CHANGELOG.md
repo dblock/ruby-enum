@@ -1,6 +1,10 @@
-### 0.5.1 (Next)
+### 0.5.0 (Next)
 
 * Your contribition here.
+
+### 0.5.0
+
+* A `Ruby::Enum::Errors::DuplicateKeyError` or a `Ruby::Enum::Errors::DuplciateKeyValyeError` will now be raised when duplicate keys / values are defined - [@laertispappas](https://github.com/laertispappas).
 
 ### 0.5.0 (11/20/2015)
 

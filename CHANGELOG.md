@@ -1,7 +1,6 @@
-### 0.5.1 (Next)
+### 0.6.0 (12/5/2016)
 
 * [#12](https://github.com/dblock/ruby-enum/pull/12): A `Ruby::Enum::Errors::DuplicateKeyError` or a `Ruby::Enum::Errors::DuplciateKeyValyeError` will now be raised when duplicate keys / values are defined - [@laertispappas](https://github.com/laertispappas).
-* Your contribution here.
 
 ### 0.5.0 (11/20/2015)
 

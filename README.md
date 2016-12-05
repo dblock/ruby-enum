@@ -153,7 +153,7 @@ You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Copyright and License
 
-Copyright (c) 2013-2015, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
+Copyright (c) 2013-2016, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
 

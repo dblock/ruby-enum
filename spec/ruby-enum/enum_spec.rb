@@ -160,4 +160,13 @@ describe Ruby::Enum do
       end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /The value red has already been defined./
     end
   end
+
+  describe 'Given a class that has not defined any enums' do
+    class EmptyEnums
+      include Ruby::Enum
+    end
+    it do
+      expect { EmptyEnums::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+    end
+  end
 end

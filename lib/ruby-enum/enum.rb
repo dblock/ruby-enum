@@ -45,7 +45,8 @@ module Ruby
       end
 
       def const_missing(key)
-        if @_enum_hash[key]
+        enum_instance = @_enum_hash[key] if @_enum_hash
+        if enum_instance
           @_enum_hash[key].value
         elsif superclass.instance_variable_get(:@_enum_hash)
           superclass.send(:const_missing, key)

@@ -147,6 +147,11 @@ The following declarations will both raise an exception:
 The `DuplicateValueError` exception is thrown to be consistent with the unique key constraint.
 Since keys are unique there is no way to map values to keys using `Colors.value('red')`
 
+### Inheritance behavior
+
+Inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well.
+Sub classes can also provide extra enums as usual.
+
 ## Contributing
 
 You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md) for details.

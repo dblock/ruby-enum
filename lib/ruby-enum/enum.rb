@@ -35,23 +35,23 @@ module Ruby
       def validate_key!(key)
         return unless @_enum_hash.key?(key)
 
-        fail Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
+        raise Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
       end
 
       def validate_value!(value)
         return unless @_enums_by_value.key?(value)
 
-        fail Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
+        raise Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
       end
 
       def const_missing(key)
-        enum_instance = @_enum_hash[key] if @_enum_hash
+        enum_instance = @_enum_hash && @_enum_hash[key]
         if enum_instance
           @_enum_hash[key].value
         elsif superclass.instance_variable_get(:@_enum_hash)
           superclass.send(:const_missing, key)
         else
-          fail Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
+          raise Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
         end
       end
 

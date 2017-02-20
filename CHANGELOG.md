@@ -1,8 +1,7 @@
-### 0.6.1 (Next)
+### 0.7.0 (Next)
 
 * [#3](https://github.com/dblock/ruby-enum/pull/13): Adds support for sub classing an Enum - [@laertispappas](https://github.com/laertispappas).
-
--* Your contribution here.
+* Your contribution here.
 
 ### 0.6.0 (12/5/2016)
 

@@ -121,10 +121,10 @@ Colors.key('yellow')
 ```
 
 
-## Duplicate enumerator keys or duplicate values
+### Duplicate enumerator keys or duplicate values
 
 Defining duplicate enums will raise a `Ruby::Enum::Errors::DuplicateKeyError`. Moreover a duplicate
-value is not allowed. Defining a duplicate value will raise a `Ruby::Enum::Errors::DuplicateKeyError`.
+value is not allowed. Defining a duplicate value will raise a `Ruby::Enum::Errors::DuplicateValueError`.
 The following declarations will both raise an exception:
 
 ```ruby
@@ -136,7 +136,7 @@ The following declarations will both raise an exception:
   end
 
   # The following will raise a DuplicateValueError
-  class Colots
+  class Colors
     include Ruby::Enum
 
     define :RED, 'red'
@@ -145,7 +145,7 @@ The following declarations will both raise an exception:
 ```
 
 The `DuplicateValueError` exception is thrown to be consistent with the unique key constraint.
-Since keys are unique there is no way to map values to keys using `Colors.key('red')`
+Since keys are unique there is no way to map values to keys using `Colors.value('red')`
 
 ## Contributing
 

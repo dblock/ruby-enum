@@ -7,7 +7,38 @@ class Colors
   define :GREEN, 'green'
 end
 
+class FirstSubclass < Colors
+  define :ORANGE, 'orange'
+end
+
+class SecondSubclass < FirstSubclass
+  define :PINK, 'pink'
+end
+
 describe Ruby::Enum do
+  describe 'Subclass behavior' do
+    it 'contains the enums defined in the parent class' do
+      expect(FirstSubclass::GREEN).to eq 'green'
+      expect(FirstSubclass::RED).to eq 'red'
+    end
+
+    it 'contains its own enums' do
+      expect(FirstSubclass::ORANGE).to eq 'orange'
+    end
+    it 'parent class should not have enums defined in child classes' do
+      expect { Colors::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+    end
+    context 'Given a 2 level depth subclass' do
+      subject { SecondSubclass }
+      it 'contains its own enums and all the enums defined in the parent classes' do
+        expect(subject::RED).to eq 'red'
+        expect(subject::GREEN).to eq 'green'
+        expect(subject::ORANGE).to eq 'orange'
+        expect(subject::PINK).to eq 'pink'
+      end
+    end
+  end
+
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -127,6 +158,15 @@ describe Ruby::Enum do
           define :Other, 'red'
         end
       end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /The value red has already been defined./
+    end
+  end
+
+  describe 'Given a class that has not defined any enums' do
+    class EmptyEnums
+      include Ruby::Enum
+    end
+    it do
+      expect { EmptyEnums::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
     end
   end
 end

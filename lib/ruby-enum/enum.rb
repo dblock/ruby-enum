@@ -30,6 +30,8 @@ module Ruby
         new_instance = new(key, value)
         @_enum_hash[key] = new_instance
         @_enums_by_value[value] = new_instance
+
+        const_set key, value
       end
 
       def validate_key!(key)
@@ -45,14 +47,7 @@ module Ruby
       end
 
       def const_missing(key)
-        enum_instance = @_enum_hash && @_enum_hash[key]
-        if enum_instance
-          @_enum_hash[key].value
-        elsif superclass.instance_variable_get(:@_enum_hash)
-          superclass.send(:const_missing, key)
-        else
-          raise Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
-        end
+        raise Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
       end
 
       # Iterate over all enumerated values.

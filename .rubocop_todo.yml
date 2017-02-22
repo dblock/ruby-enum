@@ -17,6 +17,9 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 148
 
+Metrics/BlockLength:
+    ExcludedMethods: ['describe', 'context']
+
 # Offense count: 4
 Style/Documentation:
   Exclude:

@@ -169,4 +169,12 @@ describe Ruby::Enum do
       expect { EmptyEnums::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
     end
   end
+
+  context 'when a constant is redefined in a global namespace' do
+    before do
+      RED = 'black'.freeze
+    end
+
+    it { expect(Colors::RED).to eq 'red' }
+  end
 end

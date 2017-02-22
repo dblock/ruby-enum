@@ -1,8 +1,6 @@
-### 0.7.1 (Next)
+### 0.7.1 (23/2/2017)
 
 * [#16](https://github.com/dblock/ruby-enum/pull/16): Replaces const_missing method in favor of const_set - [@laertispappas](https://github.com/laertispappas).
-
-* Your contribution here.
 
 ### 0.7.0 (21/2/2017)
 

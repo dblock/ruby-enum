@@ -16,29 +16,6 @@ class SecondSubclass < FirstSubclass
 end
 
 describe Ruby::Enum do
-  describe 'Subclass behavior' do
-    it 'contains the enums defined in the parent class' do
-      expect(FirstSubclass::GREEN).to eq 'green'
-      expect(FirstSubclass::RED).to eq 'red'
-    end
-
-    it 'contains its own enums' do
-      expect(FirstSubclass::ORANGE).to eq 'orange'
-    end
-    it 'parent class should not have enums defined in child classes' do
-      expect { Colors::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
-    end
-    context 'Given a 2 level depth subclass' do
-      subject { SecondSubclass }
-      it 'contains its own enums and all the enums defined in the parent classes' do
-        expect(subject::RED).to eq 'red'
-        expect(subject::GREEN).to eq 'green'
-        expect(subject::ORANGE).to eq 'orange'
-        expect(subject::PINK).to eq 'pink'
-      end
-    end
-  end
-
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -176,5 +153,47 @@ describe Ruby::Enum do
     end
 
     it { expect(Colors::RED).to eq 'red' }
+  end
+
+  describe 'Subclass behavior' do
+    it 'contains the enums defined in the parent class' do
+      expect(FirstSubclass::GREEN).to eq 'green'
+      expect(FirstSubclass::RED).to eq 'red'
+    end
+
+    it 'contains its own enums' do
+      expect(FirstSubclass::ORANGE).to eq 'orange'
+    end
+    it 'parent class should not have enums defined in child classes' do
+      expect { Colors::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+    end
+    context 'Given a 2 level depth subclass' do
+      subject { SecondSubclass }
+      it 'contains its own enums and all the enums defined in the parent classes' do
+        expect(subject::RED).to eq 'red'
+        expect(subject::GREEN).to eq 'green'
+        expect(subject::ORANGE).to eq 'orange'
+        expect(subject::PINK).to eq 'pink'
+      end
+    end
+  end
+
+  describe 'non constant definitions' do
+    class States
+      include Ruby::Enum
+      define :created, 'Created'
+      define :published, 'Published'
+    end
+    subject { States }
+    it 'behaves like an enum' do
+      expect(subject.created).to eq 'Created'
+      expect(subject.published).to eq 'Published'
+
+      expect(subject.key?(:created)).to be true
+      expect(subject.key('Created')).to eq :created
+
+      expect(subject.value?('Created')).to be true
+      expect(subject.value(:created)).to eq 'Created'
+    end
   end
 end

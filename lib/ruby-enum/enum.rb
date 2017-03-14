@@ -27,23 +27,19 @@ module Ruby
         validate_key!(key)
         validate_value!(value)
 
+        store_new_instance(key, value)
+
+        if upper?(key.to_s)
+          const_set key, value
+        else
+          define_singleton_method(key) { value }
+        end
+      end
+
+      def store_new_instance(key, value)
         new_instance = new(key, value)
         @_enum_hash[key] = new_instance
         @_enums_by_value[value] = new_instance
-
-        const_set key, value
-      end
-
-      def validate_key!(key)
-        return unless @_enum_hash.key?(key)
-
-        raise Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
-      end
-
-      def validate_value!(value)
-        return unless @_enums_by_value.key?(value)
-
-        raise Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
       end
 
       def const_missing(key)
@@ -127,6 +123,24 @@ module Ruby
         Hash[@_enum_hash.map do |key, enum|
           [key, enum.value]
         end]
+      end
+
+      private
+
+      def upper?(s)
+        !/[[:upper:]]/.match(s).nil?
+      end
+
+      def validate_key!(key)
+        return unless @_enum_hash.key?(key)
+
+        raise Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
+      end
+
+      def validate_value!(value)
+        return unless @_enums_by_value.key?(value)
+
+        raise Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
       end
     end
   end

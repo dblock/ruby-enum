@@ -1,6 +1,6 @@
 ### 0.7.2 (Next)
 
-* Your contribution here.
+* [#18](https://github.com/dblock/ruby-enum/pull/18): Adds support for non constant definition - [@laertispappas](https://github.com/laertispappas).
 
 ### 0.7.1 (23/2/2017)
 

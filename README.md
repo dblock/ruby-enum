@@ -10,12 +10,24 @@ Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.c
 
 ## Usage
 
+Enums can be defined and accessed either as constants or class methods. For example below we have two Ruby::Enum classes
+where the first one (Colors) defines its enums and references them as constants. The second class (State) defines and
+references its enums as class methods.
+
 ``` ruby
 class Colors
   include Ruby::Enum
 
   define :RED, "red"
   define :GREEN, "green"
+end
+
+# or
+class State
+  include Ruby::Enum
+
+  define :created, 'Created'
+  define :published, 'Published'
 end
 ```
 
@@ -28,6 +40,13 @@ Colors::UNDEFINED # raises Ruby::Enum::Errors::UninitializedConstantError
 Colors.keys # [ :RED, :GREEN ]
 Colors.values # [ "red", "green" ]
 Colors.to_h # { :RED => "red", :GREEN => "green" }
+
+State.created # "Created"
+State.published # "Published"
+State.undefined # NoMethodError is raised
+State.keys # [ :created, :published ]
+State.values # ["Created", "Published"]
+State.to_h # { :created => 'Created', :published => 'Published' }
 ```
 
 ### All `Enumerable` methods are supported.

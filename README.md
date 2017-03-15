@@ -22,7 +22,7 @@ class Colors
   define :GREEN, "green"
 end
 
-# or
+# or for versions >= 0.7.2
 class State
   include Ruby::Enum
 

@@ -1,6 +1,6 @@
 # Releasing Ruby-Enum
 
-There're no hard rules about when to release ruby-enum. Release bug fixes frequenty, features not so frequently and breaking API changes rarely.
+There're no hard rules about when to release ruby-enum. Release bug fixes frequently, features not so frequently and breaking API changes rarely.
 
 ### Release
 
@@ -58,7 +58,7 @@ Next Release
 
 Increment the third version number in [lib/ruby-enum/version.rb](lib/ruby-enum/version.rb).
 
-Comit your changes.
+Commit your changes.
 
 ```
 git add CHANGELOG.md lib/ruby-enum/version.rb

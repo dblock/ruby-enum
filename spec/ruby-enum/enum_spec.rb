@@ -33,9 +33,9 @@ describe Ruby::Enum do
         enum_keys << enum.key
         enum_values << enum.value
       end
-      expect(keys).to eq [:RED, :GREEN]
-      expect(enum_keys).to eq [:RED, :GREEN]
-      expect(enum_values).to eq %w(red green)
+      expect(keys).to eq %i[RED GREEN]
+      expect(enum_keys).to eq %i[RED GREEN]
+      expect(enum_values).to eq %w[red green]
     end
   end
   context '#map' do
@@ -104,12 +104,12 @@ describe Ruby::Enum do
   end
   context '#keys' do
     it 'returns keys' do
-      expect(Colors.keys).to eq([:RED, :GREEN])
+      expect(Colors.keys).to eq(%i[RED GREEN])
     end
   end
   context '#values' do
     it 'returns values' do
-      expect(Colors.values).to eq(%w(red green))
+      expect(Colors.values).to eq(%w[red green])
     end
   end
   context '#to_h' do

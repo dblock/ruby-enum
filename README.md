@@ -2,8 +2,7 @@ Ruby::Enum
 ==========
 
 [![Gem Version](http://img.shields.io/gem/v/ruby-enum.svg)](http://badge.fury.io/rb/ruby-enum)
-[![Build Status](http://img.shields.io/travis/dblock/ruby-enum.svg)](https://travis-ci.org/dblock/ruby-enum)
-[![Dependency Status](https://gemnasium.com/dblock/ruby-enum.svg)](https://gemnasium.com/dblock/ruby-enum)
+[![Build Status](https://travis-ci.org/dblock/ruby-enum.svg?branch=master)](https://travis-ci.org/dblock/ruby-enum)
 [![Code Climate](https://codeclimate.com/github/dblock/ruby-enum.svg)](https://codeclimate.com/github/dblock/ruby-enum)
 
 Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.com/enumerations-and-ruby) and improved upon [another blog post](http://code.dblock.org/how-to-define-enums-in-ruby).
@@ -177,7 +176,7 @@ You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Copyright and License
 
-Copyright (c) 2013-2016, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
+Copyright (c) 2013-2020, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
 

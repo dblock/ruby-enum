@@ -1,3 +1,7 @@
+### 0.8.1 (Next)
+
+* Your contribution here.
+
 ### 0.8.0 (2020/3/27)
 
 * [#22](https://github.com/dblock/ruby-enum/pull/22): Added `Ruby::Enum#each_key` and `Ruby::Enum#each_value` - [@dblock](https://github.com/dblock).

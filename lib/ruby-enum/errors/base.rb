@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ruby
   module Enum
     module Errors
@@ -26,7 +28,7 @@ module Ruby
 
         private
 
-        BASE_KEY = 'ruby.enum.errors.messages'.freeze #:nodoc:
+        BASE_KEY = 'ruby.enum.errors.messages' #:nodoc:
 
         # Given the key of the specific error and the options hash, translate the
         # message.

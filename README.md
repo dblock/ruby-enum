@@ -68,6 +68,18 @@ Colors.each do |key, enum|
 end
 ```
 
+``` ruby
+Colors.each_key do |key|
+  # :RED, :GREEN
+end
+```
+
+``` ruby
+Colors.each_value do |value|
+  # "red", "green"
+end
+```
+
 #### Mapping
 
 ``` ruby

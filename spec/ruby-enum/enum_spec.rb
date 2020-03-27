@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 class Colors
@@ -63,8 +65,13 @@ describe Ruby::Enum do
     end
   end
   context '#key?' do
-    it 'returns true for valid keys' do
-      Colors.keys.each do |key|
+    it 'returns true for valid keys accessed directly' do
+      Colors.keys.each do |key| # rubocop:disable Style/HashEachMethods
+        expect(Colors.key?(key)).to eq(true)
+      end
+    end
+    it 'returns true for valid keys accessed via each_keys' do
+      Colors.each_key do |key|
         expect(Colors.key?(key)).to eq(true)
       end
     end
@@ -83,8 +90,13 @@ describe Ruby::Enum do
     end
   end
   context '#value?' do
-    it 'returns true for valid values' do
-      Colors.values.each do |value|
+    it 'returns true for valid values accessed directly' do
+      Colors.values.each do |value| # rubocop:disable Style/HashEachMethods
+        expect(Colors.value?(value)).to eq(true)
+      end
+    end
+    it 'returns true for valid values accessed via each_value' do
+      Colors.each_value do |value|
         expect(Colors.value?(value)).to eq(true)
       end
     end
@@ -149,7 +161,7 @@ describe Ruby::Enum do
 
   context 'when a constant is redefined in a global namespace' do
     before do
-      RED = 'black'.freeze
+      RED = 'black'
     end
 
     it { expect(Colors::RED).to eq 'red' }

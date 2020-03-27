@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ruby
   module Enum
     attr_reader :key, :value
@@ -85,7 +87,7 @@ module Ruby
       # Returns the corresponding enum instance or nil.
       def value(k)
         enum = @_enum_hash[k]
-        enum.value if enum
+        enum&.value
       end
 
       # Whether the specified value exists in this enum.
@@ -106,7 +108,7 @@ module Ruby
       # Returns the corresponding key symbol or nil.
       def key(v)
         enum = @_enums_by_value[v]
-        enum.key if enum
+        enum&.key
       end
 
       # Returns all enum keys.
@@ -117,6 +119,22 @@ module Ruby
       # Returns all enum values.
       def values
         @_enum_hash.values.map(&:value)
+      end
+
+      # Iterate over all enumerated values.
+      # Required for Enumerable mixin
+      def each_value(&_block)
+        @_enum_hash.each_value do |v|
+          yield v.value
+        end
+      end
+
+      # Iterate over all enumerated keys.
+      # Required for Enumerable mixin
+      def each_key(&_block)
+        @_enum_hash.each_value do |v|
+          yield v.key
+        end
       end
 
       def to_h

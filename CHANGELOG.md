@@ -1,18 +1,21 @@
-### 0.7.3 (Next)
+### 0.8.0 (Next)
 
+* [#22](https://github.com/dblock/ruby-enum/pull/22): Added `Ruby::Enum#each_key` and `Ruby::Enum#each_value` - [@dblock](https://github.com/dblock).
+* [#22](https://github.com/dblock/ruby-enum/pull/22): Dropped support for Ruby 2.2 - [@dblock](https://github.com/dblock).
+* [#22](https://github.com/dblock/ruby-enum/pull/22): Upgraded RuboCop to 0.80.1 - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.7.2 (15/3/2017)
 
-* [#18](https://github.com/dblock/ruby-enum/pull/18): Adds support for non constant definition - [@laertispappas](https://github.com/laertispappas).
+* [#18](https://github.com/dblock/ruby-enum/pull/18): Added support for non constant definition - [@laertispappas](https://github.com/laertispappas).
 
 ### 0.7.1 (23/2/2017)
 
-* [#16](https://github.com/dblock/ruby-enum/pull/16): Replaces const_missing method in favor of const_set - [@laertispappas](https://github.com/laertispappas).
+* [#16](https://github.com/dblock/ruby-enum/pull/16): Replaced `const_missing` with `const_set` - [@laertispappas](https://github.com/laertispappas).
 
 ### 0.7.0 (21/2/2017)
 
-* [#3](https://github.com/dblock/ruby-enum/pull/13): Adds support for sub classing an Enum - [@laertispappas](https://github.com/laertispappas).
+* [#3](https://github.com/dblock/ruby-enum/pull/13): Added support for subclassing an Enum - [@laertispappas](https://github.com/laertispappas).
 
 ### 0.6.0 (12/5/2016)
 

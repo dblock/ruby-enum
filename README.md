@@ -2,16 +2,19 @@ Ruby::Enum
 ==========
 
 [![Gem Version](http://img.shields.io/gem/v/ruby-enum.svg)](http://badge.fury.io/rb/ruby-enum)
-[![Build Status](https://travis-ci.org/dblock/ruby-enum.svg?branch=master)](https://travis-ci.org/dblock/ruby-enum)
+[![Build Status](http://img.shields.io/travis/dblock/ruby-enum.svg)](https://travis-ci.org/dblock/ruby-enum)
+[![Dependency Status](https://gemnasium.com/dblock/ruby-enum.svg)](https://gemnasium.com/dblock/ruby-enum)
 [![Code Climate](https://codeclimate.com/github/dblock/ruby-enum.svg)](https://codeclimate.com/github/dblock/ruby-enum)
 
 Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.com/enumerations-and-ruby) and improved upon [another blog post](http://code.dblock.org/how-to-define-enums-in-ruby).
 
 ## Usage
 
-Enums can be defined and accessed either as constants or class methods. For example below we have two Ruby::Enum classes
-where the first one (Colors) defines its enums and references them as constants. The second class (State) defines and
-references its enums as class methods.
+Enums can be defined and accessed either as constants or class methods, which is a matter of preference.
+
+### Constants
+
+Define enums and reference them as constants.
 
 ``` ruby
 class Colors
@@ -20,17 +23,7 @@ class Colors
   define :RED, "red"
   define :GREEN, "green"
 end
-
-# or for versions >= 0.7.2
-class State
-  include Ruby::Enum
-
-  define :created, 'Created'
-  define :published, 'Published'
-end
 ```
-
-### Referencing
 
 ``` ruby
 Colors::RED # "red"
@@ -39,16 +32,33 @@ Colors::UNDEFINED # raises Ruby::Enum::Errors::UninitializedConstantError
 Colors.keys # [ :RED, :GREEN ]
 Colors.values # [ "red", "green" ]
 Colors.to_h # { :RED => "red", :GREEN => "green" }
-
-State.created # "Created"
-State.published # "Published"
-State.undefined # NoMethodError is raised
-State.keys # [ :created, :published ]
-State.values # ["Created", "Published"]
-State.to_h # { :created => 'Created', :published => 'Published' }
 ```
 
-### All `Enumerable` methods are supported.
+### Class Methods
+
+Define enums reference them as class methods.
+
+``` ruby
+class OrderState
+  include Ruby::Enum
+
+  define :created, 'Created'
+  define :paid, 'Paid'
+end
+```
+
+```ruby
+OrderState.created # "Created"
+OrderState.paid # "Paid"
+OrderState.undefined # NoMethodError is raised
+OrderState.keys # [ :created, :paid ]
+OrderState.values # ["Created", "Paid"]
+OrderState.to_h # { :created => 'Created', :paid => 'Paid' }
+```
+
+### Enumerating
+
+All `Enumerable` methods are supported.
 
 #### Iterating
 
@@ -94,7 +104,9 @@ end
 # => [ [:GREEN, #<Colors:...>], [:RED, #<Colors:...>] ]
 ```
 
-### Several hash-like methods are supported.
+### Hashing
+
+Several hash-like methods are supported.
 
 #### Retrieving keys and values
 
@@ -137,7 +149,6 @@ Colors.value?('yellow')
 Colors.key('yellow')
 # => nil
 ```
-
 
 ### Duplicate enumerator keys or duplicate values
 

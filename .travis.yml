@@ -1,5 +1,8 @@
 language: ruby
-
+arch:
+  - amd64
+  - ppc64le
+  
 cache: bundler
 
 before_install:
@@ -17,3 +20,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
+    - rvm: ruby-head
+      arch: ppc64le
+    - rvm: jruby-head
+      arch: ppc64le

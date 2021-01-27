@@ -118,7 +118,10 @@ module Ruby
 
       # Returns all enum values.
       def values
-        @_enum_hash.values.map(&:value)
+        values = @_enum_hash.values.map(&:value)
+        superclass.values + values
+      rescue NoMethodError
+        values
       end
 
       # Iterate over all enumerated values.

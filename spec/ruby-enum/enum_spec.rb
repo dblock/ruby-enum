@@ -188,6 +188,14 @@ describe Ruby::Enum do
         expect(subject::PINK).to eq 'pink'
       end
     end
+
+    describe '#values' do
+      subject { FirstSubclass.values }
+
+      it 'contains the enums in the parent class' do
+        expect(subject).to eq(%w[red green orange])
+      end
+    end
   end
 
   describe 'non constant definitions' do

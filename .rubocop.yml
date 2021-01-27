@@ -3,6 +3,10 @@ AllCops:
   Exclude:
     - vendor/**/*
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
 Style/HashEachMethods:
   Enabled: true
 

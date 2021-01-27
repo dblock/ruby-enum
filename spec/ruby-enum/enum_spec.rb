@@ -187,12 +187,20 @@ describe Ruby::Enum do
         expect(subject::ORANGE).to eq 'orange'
         expect(subject::PINK).to eq 'pink'
       end
+
+      describe '#values' do
+        subject { SecondSubclass.values }
+
+        it 'contains the values from all of the parent classes' do
+          expect(subject).to eq(%w[red green orange pink])
+        end
+      end
     end
 
     describe '#values' do
       subject { FirstSubclass.values }
 
-      it 'contains the enums in the parent class' do
+      it 'contains the values from the parent class' do
         expect(subject).to eq(%w[red green orange])
       end
     end

@@ -192,6 +192,31 @@ Since keys are unique there is no way to map values to keys using `Colors.value(
 Inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well.
 Sub classes can also provide extra enums as usual.
 
+``` ruby
+class A
+  include Ruby::Enum
+
+  define :T, 'T'
+end
+
+class B < A
+  define :U, 'U'
+end
+```
+
+``` ruby
+A::T # 'T'
+B::T # 'T'
+B::U # 'U'
+```
+
+The `values` class method will enumerate the values from all base classes.
+
+``` ruby
+A.values # ['T']
+B.values # ['T', 'U']
+```
+
 ## Contributing
 
 You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md) for details.

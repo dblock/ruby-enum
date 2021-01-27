@@ -211,28 +211,37 @@ Inheriting from a `Ruby::Enum` class, all defined enums in the parent class will
 Sub classes can also provide extra enums as usual.
 
 ``` ruby
-class A
+class PrimaryColors
   include Ruby::Enum
 
-  define :T, 'T'
+  define :RED, 'RED'
+  define :GREEN, 'GREEN'
+  define :BLUE, 'BLUE'
 end
 
-class B < A
-  define :U, 'U'
+class RainbowColors < PrimaryColors
+  define :ORANGE, 'ORANGE'
+  define :YELLOW, 'YELLOW'
+  define :INIDGO, 'INIDGO'
+  define :VIOLET, 'VIOLET'
 end
 ```
 
 ``` ruby
-A::T # 'T'
-B::T # 'T'
-B::U # 'U'
+RainbowColors::RED # 'RED'
+RainbowColors::ORANGE # 'ORANGE'
+RainbowColors::YELLOW # 'YELLOW'
+RainbowColors::GREEN # 'GREEN'
+RainbowColors::BLUE # 'BLUE'
+RainbowColors::INIDGO # 'INIDGO'
+RainbowColors::VIOLET # 'VIOLET'
 ```
 
 The `values` class method will enumerate the values from all base classes.
 
 ``` ruby
-A.values # ['T']
-B.values # ['T', 'U']
+PrimaryColors.values # ['RED', 'GREEN', 'BLUE']
+RainbowColors.values # ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INIDGO', 'VIOLET']
 ```
 
 ## Contributing

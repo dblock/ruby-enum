@@ -190,6 +190,19 @@ describe Ruby::Enum do
     end
   end
 
+  describe 'default value' do
+    class Default
+      include Ruby::Enum
+      define :KEY
+    end
+
+    subject { Default::KEY }
+
+    it 'equals the key' do
+      expect(subject).to eq(:KEY)
+    end
+  end
+
   describe 'non constant definitions' do
     class States
       include Ruby::Enum

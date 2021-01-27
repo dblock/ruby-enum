@@ -22,7 +22,7 @@ module Ruby
       # === Parameters
       # [key] Enumerator key.
       # [value] Enumerator value.
-      def define(key, value)
+      def define(key, value = key)
         @_enum_hash ||= {}
         @_enums_by_value ||= {}
 

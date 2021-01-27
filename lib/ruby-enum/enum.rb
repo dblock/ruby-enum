@@ -119,9 +119,12 @@ module Ruby
       # Returns all enum values.
       def values
         values = @_enum_hash.values.map(&:value)
-        superclass.values + values
-      rescue NoMethodError
-        values
+
+        if superclass < Ruby::Enum
+          superclass.values + values
+        else
+          values
+        end
       end
 
       # Iterate over all enumerated values.

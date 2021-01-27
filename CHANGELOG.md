@@ -1,10 +1,7 @@
-### 0.9.0
-
-* [#29](https://github.com/dblock/ruby-enum/pull/29): Added superclass values when enumerating with `Ruby::Enum#values` - [@gi](https://github.com/gi).
-
-### 0.8.1 (Next)
+### 0.9.0 (Next)
 
 * Your contribution here.
+* [#29](https://github.com/dblock/ruby-enum/pull/29): Added superclass values when enumerating with `Ruby::Enum#values` - [@gi](https://github.com/gi).
 * [#30](https://github.com/dblock/ruby-enum/pull/30): Default value to key - [@gi](https://github.com/gi).
 
 ### 0.8.0 (2020/3/27)

@@ -55,6 +55,24 @@ OrderState.values # ["Created", "Paid"]
 OrderState.to_h # { :created => 'Created', :paid => 'Paid' }
 ```
 
+### Default Value
+
+The value is optional. If unspecified, the value will default to the key.
+
+``` ruby
+class Defaults
+  include Ruby::Enum
+
+  define :UNSPECIFIED
+  define :unspecified
+end
+```
+
+``` ruby
+Defaults::UNSPECIFIED # :UNSPECIFIED
+Defaults.unspecified # :unspecified
+```
+
 ### Enumerating
 
 All `Enumerable` methods are supported.

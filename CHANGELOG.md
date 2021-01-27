@@ -5,6 +5,7 @@
 ### 0.8.1 (Next)
 
 * Your contribution here.
+* [#30](https://github.com/dblock/ruby-enum/pull/30): Default value to key - [@gi](https://github.com/gi).
 
 ### 0.8.0 (2020/3/27)
 

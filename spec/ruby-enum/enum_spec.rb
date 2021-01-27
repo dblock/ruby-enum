@@ -206,22 +206,43 @@ describe Ruby::Enum do
     end
   end
 
+  describe 'default value' do
+    class Default
+      include Ruby::Enum
+      define :KEY
+    end
+
+    subject { Default::KEY }
+
+    it 'equals the key' do
+      expect(subject).to eq(:KEY)
+    end
+  end
+
   describe 'non constant definitions' do
     class States
       include Ruby::Enum
       define :created, 'Created'
       define :published, 'Published'
+      define :undefined
     end
     subject { States }
     it 'behaves like an enum' do
       expect(subject.created).to eq 'Created'
       expect(subject.published).to eq 'Published'
+      expect(subject.undefined).to eq :undefined
 
       expect(subject.key?(:created)).to be true
       expect(subject.key('Created')).to eq :created
 
       expect(subject.value?('Created')).to be true
       expect(subject.value(:created)).to eq 'Created'
+
+      expect(subject.key?(:undefined)).to be true
+      expect(subject.key(:undefined)).to eq :undefined
+
+      expect(subject.value?(:undefined)).to be true
+      expect(subject.value(:undefined)).to eq :undefined
     end
   end
 end

@@ -210,6 +210,40 @@ Since keys are unique there is no way to map values to keys using `Colors.value(
 Inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well.
 Sub classes can also provide extra enums as usual.
 
+``` ruby
+class PrimaryColors
+  include Ruby::Enum
+
+  define :RED, 'RED'
+  define :GREEN, 'GREEN'
+  define :BLUE, 'BLUE'
+end
+
+class RainbowColors < PrimaryColors
+  define :ORANGE, 'ORANGE'
+  define :YELLOW, 'YELLOW'
+  define :INIDGO, 'INIDGO'
+  define :VIOLET, 'VIOLET'
+end
+```
+
+``` ruby
+RainbowColors::RED # 'RED'
+RainbowColors::ORANGE # 'ORANGE'
+RainbowColors::YELLOW # 'YELLOW'
+RainbowColors::GREEN # 'GREEN'
+RainbowColors::BLUE # 'BLUE'
+RainbowColors::INIDGO # 'INIDGO'
+RainbowColors::VIOLET # 'VIOLET'
+```
+
+The `values` class method will enumerate the values from all base classes.
+
+``` ruby
+PrimaryColors.values # ['RED', 'GREEN', 'BLUE']
+RainbowColors.values # ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INIDGO', 'VIOLET']
+```
+
 ## Contributing
 
 You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md) for details.

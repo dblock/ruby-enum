@@ -1,5 +1,6 @@
 ### 0.9.0 (Next)
 
+* [#34](https://github.com/dblock/ruby-enum/pull/34): Added support for Ruby 3.0 - [@dblock](https://github.com/dblock).
 * [#29](https://github.com/dblock/ruby-enum/pull/29): Added superclass values when enumerating with `Ruby::Enum#values` - [@gi](https://github.com/gi).
 * [#30](https://github.com/dblock/ruby-enum/pull/30): Default value to key - [@gi](https://github.com/gi).
 * [#34](https://github.com/dblock/ruby-enum/pull/34): Replaced Travis-CI with Github Actions, added Danger PR linter - [@dblock](https://github.com/dblock).

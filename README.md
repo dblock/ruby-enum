@@ -2,10 +2,31 @@ Ruby::Enum
 ==========
 
 [![Gem Version](http://img.shields.io/gem/v/ruby-enum.svg)](http://badge.fury.io/rb/ruby-enum)
-[![Build Status](https://travis-ci.org/dblock/ruby-enum.svg?branch=master)](https://travis-ci.org/dblock/ruby-enum)
+[![Build Status](https://github.com/dblock/ruby-enum/workflows/test/badge.svg?branch=master)](https://github.com/dblock/ruby-enum/actions)
 [![Code Climate](https://codeclimate.com/github/dblock/ruby-enum.svg)](https://codeclimate.com/github/dblock/ruby-enum)
 
 Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.com/enumerations-and-ruby) and improved upon [another blog post](http://code.dblock.org/how-to-define-enums-in-ruby).
+
+## Table of Contents
+
+- [Usage](#usage)
+  - [Constants](#constants)
+  - [Class Methods](#class-methods)
+  - [Default Value](#default-value)
+  - [Enumerating](#enumerating)
+    - [Iterating](#iterating)
+    - [Mapping](#mapping)
+    - [Reducing](#reducing)
+    - [Sorting](#sorting)
+  - [Hashing](#hashing)
+    - [Retrieving keys and values](#retrieving-keys-and-values)
+    - [Mapping keys to values](#mapping-keys-to-values)
+    - [Mapping values to keys](#mapping-values-to-keys)
+  - [Duplicate enumerator keys or duplicate values](#duplicate-enumerator-keys-or-duplicate-values)
+  - [Inheritance behavior](#inheritance-behavior)
+- [Contributing](#contributing)
+- [Copyright and License](#copyright-and-license)
+- [Related Projects](#related-projects)
 
 ## Usage
 
@@ -250,7 +271,7 @@ You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Copyright and License
 
-Copyright (c) 2013-2020, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
+Copyright (c) 2013-2021, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
 

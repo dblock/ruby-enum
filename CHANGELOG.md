@@ -4,6 +4,7 @@
 * [#29](https://github.com/dblock/ruby-enum/pull/29): Added superclass values when enumerating with `Ruby::Enum#values` - [@gi](https://github.com/gi).
 * [#30](https://github.com/dblock/ruby-enum/pull/30): Default value to key - [@gi](https://github.com/gi).
 * [#34](https://github.com/dblock/ruby-enum/pull/34): Replaced Travis-CI with Github Actions, added Danger PR linter - [@dblock](https://github.com/dblock).
+* [#37](https://github.com/dblock/ruby-enum/pull/37): Added code coverage - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.8.0 (2020/03/27)

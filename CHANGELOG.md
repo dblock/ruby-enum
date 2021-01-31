@@ -1,3 +1,7 @@
+### 0.9.1 (Next)
+
+* Your contribution here.
+
 ### 0.9.0 (2021/01/21)
 
 * [#34](https://github.com/dblock/ruby-enum/pull/34): Added support for Ruby 3.0 - [@dblock](https://github.com/dblock).

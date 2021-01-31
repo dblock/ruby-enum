@@ -5,7 +5,7 @@ Ruby::Enum
 [![Build Status](https://github.com/dblock/ruby-enum/workflows/test/badge.svg?branch=master)](https://github.com/dblock/ruby-enum/actions)
 [![Code Climate](https://codeclimate.com/github/dblock/ruby-enum.svg)](https://codeclimate.com/github/dblock/ruby-enum)
 
-Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.com/enumerations-and-ruby) and improved upon [another blog post](http://code.dblock.org/how-to-define-enums-in-ruby).
+Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.com/enumerations-and-ruby), and improved upon [another blog post](http://code.dblock.org/how-to-define-enums-in-ruby).
 
 ## Table of Contents
 
@@ -23,57 +23,57 @@ Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.c
     - [Mapping keys to values](#mapping-keys-to-values)
     - [Mapping values to keys](#mapping-values-to-keys)
   - [Duplicate enumerator keys or duplicate values](#duplicate-enumerator-keys-or-duplicate-values)
-  - [Inheritance behavior](#inheritance-behavior)
+  - [Inheritance](#inheritance)
 - [Contributing](#contributing)
 - [Copyright and License](#copyright-and-license)
 - [Related Projects](#related-projects)
 
 ## Usage
 
-Enums can be defined and accessed either as constants or class methods, which is a matter of preference.
+Enums can be defined and accessed either as constants, or class methods, which is a matter of preference.
 
 ### Constants
 
-Define enums and reference them as constants.
-
-``` ruby
-class Colors
-  include Ruby::Enum
-
-  define :RED, "red"
-  define :GREEN, "green"
-end
-```
-
-``` ruby
-Colors::RED # "red"
-Colors::GREEN # "green"
-Colors::UNDEFINED # raises Ruby::Enum::Errors::UninitializedConstantError
-Colors.keys # [ :RED, :GREEN ]
-Colors.values # [ "red", "green" ]
-Colors.to_h # { :RED => "red", :GREEN => "green" }
-```
-
-### Class Methods
-
-Define enums reference them as class methods.
+Define enums, and reference them as constants.
 
 ``` ruby
 class OrderState
   include Ruby::Enum
 
-  define :created, 'Created'
-  define :paid, 'Paid'
+  define :CREATED, 'created'
+  define :PAID, 'paid'
+end
+```
+
+``` ruby
+OrderState::CREATED # 'created'
+OrderState::PAID # 'paid'
+OrderState::UNKNOWN # raises Ruby::Enum::Errors::UninitializedConstantError
+OrderState.keys # [ :CREATED, :PAID ]
+OrderState.values # [ 'created', 'paid' ]
+OrderState.to_h # { :CREATED => 'created', :PAID => 'paid' }
+```
+
+### Class Methods
+
+Define enums, and reference them as class methods.
+
+``` ruby
+class OrderState
+  include Ruby::Enum
+
+  define :created, 'created'
+  define :paid, 'paid'
 end
 ```
 
 ```ruby
-OrderState.created # "Created"
-OrderState.paid # "Paid"
+OrderState.created # 'created'
+OrderState.paid # 'paid'
 OrderState.undefined # NoMethodError is raised
 OrderState.keys # [ :created, :paid ]
-OrderState.values # ["Created", "Paid"]
-OrderState.to_h # { :created => 'Created', :paid => 'Paid' }
+OrderState.values # ['created', 'paid']
+OrderState.to_h # { :created => 'created', :paid => 'paid' }
 ```
 
 ### Default Value
@@ -81,7 +81,7 @@ OrderState.to_h # { :created => 'Created', :paid => 'Paid' }
 The value is optional. If unspecified, the value will default to the key.
 
 ``` ruby
-class Defaults
+class OrderState
   include Ruby::Enum
 
   define :UNSPECIFIED
@@ -90,68 +90,69 @@ end
 ```
 
 ``` ruby
-Defaults::UNSPECIFIED # :UNSPECIFIED
-Defaults.unspecified # :unspecified
+OrderState::UNSPECIFIED # :UNSPECIFIED
+OrderState.unspecified # :unspecified
 ```
 
 ### Enumerating
 
-All `Enumerable` methods are supported.
+Enums support all `Enumerable` methods.
 
 #### Iterating
 
 ``` ruby
-Colors.each do |key, enum|
-  # key and enum.key is :RED, :GREEN
-  # enum.value is "red", "green"
+OrderState.each do |key, enum|
+  # key and enum.key are :CREATED, :PAID
+  # enum.value is 'created', 'paid'
 end
 ```
 
 ``` ruby
-Colors.each_key do |key|
-  # :RED, :GREEN
+OrderState.each_key do |key|
+  # :CREATED, :PAID
 end
 ```
 
 ``` ruby
-Colors.each_value do |value|
-  # "red", "green"
+OrderState.each_value do |value|
+  # 'created', 'paid'
 end
 ```
 
 #### Mapping
 
 ``` ruby
-Colors.map do |key, enum|
-  # key and enum.key is :RED, :GREEN
-  # enum.value is "red", "green"
+OrderState.map do |key, enum|
+  # key and enum.key are :CREATED, :PAID
+  # enum.value is 'created', 'paid'
   [enum.value, key]
 end
 
-# => [ ['red', :RED], ['green', :GREEN] ]
+# => [ ['created', :CREATED], ['paid', :PAID] ]
 ```
 
 #### Reducing
 
 ``` ruby
-Colors.reduce([]) do |arr, (key, enum)|
-  # key and enum.key is :RED, :GREEN
-  # enum.value is "red", "green"
+OrderState.reduce([]) do |arr, (key, enum)|
+  # key and enum.key are :CREATED, :PAID
+  # enum.value is 'created', 'paid'
   arr << [enum.value, key]
 end
 
-# => [ ['red', :RED], ['green', :GREEN] ]
+# => [ ['created', :CREATED], ['paid', :PAID] ]
 ```
 
 #### Sorting
+
 ``` ruby
-Colors.sort_by do |key, enum|
-  # key and enum.key is :RED, :GREEN
-  # enum.value is "red", "green"
-  enum.value
+OrderState.sort_by do |key, enum|
+  # key and enum.key are :CREATED, :PAID
+  # enum.value is 'created', 'paid'
+  enum.value.length
 end
 
-# => [ [:GREEN, #<Colors:...>], [:RED, #<Colors:...>] ]
+# => [[:PAID, #<OrderState:0x0 @key=:PAID, @value="paid">], [:CREATED, #<OrderState:0x1 @key=:CREATED, @value="created">]]
 ```
 
 ### Hashing
@@ -161,113 +162,106 @@ Several hash-like methods are supported.
 #### Retrieving keys and values
 
 ``` ruby
-Colors.keys
-# => [:RED, :GREEN]
+OrderState.keys
+# => [:CREATED, :PAID]
 
-Colors.values
-# => ["red", "green"]
+OrderState.values
+# => ['created', 'paid']
 ```
 
 #### Mapping keys to values
 
 ``` ruby
-Colors.key?(:RED)
+OrderState.key?(:CREATED)
 # => true
 
-Colors.value(:RED)
-# => "red"
+OrderState.value(:CREATED)
+# => 'created'
 
-Colors.key?(:BLUE)
+OrderState.key?(:FAILED)
 # => false
 
-Colors.value(:BLUE)
+OrderState.value(:FAILED)
 # => nil
 ```
 
 #### Mapping values to keys
 
 ``` ruby
-Colors.value?('green')
+OrderState.value?('paid')
 # => true
 
-Colors.key('green')
-# => :GREEN
+OrderState.key('paid')
+# => :PAID
 
-Colors.value?('yellow')
+OrderState.value?('failed')
 # => false
 
-Colors.key('yellow')
+OrderState.key('failed')
 # => nil
 ```
 
 ### Duplicate enumerator keys or duplicate values
 
-Defining duplicate enums will raise a `Ruby::Enum::Errors::DuplicateKeyError`. Moreover a duplicate
-value is not allowed. Defining a duplicate value will raise a `Ruby::Enum::Errors::DuplicateValueError`.
-The following declarations will both raise an exception:
+Defining duplicate enums raises `Ruby::Enum::Errors::DuplicateKeyError`.
 
 ```ruby
-  class Colors
-    include Ruby::Enum
-
-    define :RED, "red"
-    define :RED, "my red" # will raise a DuplicateKeyError exception
-  end
-
-  # The following will raise a DuplicateValueError
-  class Colors
-    include Ruby::Enum
-
-    define :RED, 'red'
-    define :SOME, 'red' # Boom
-  end
-```
-
-The `DuplicateValueError` exception is thrown to be consistent with the unique key constraint.
-Since keys are unique there is no way to map values to keys using `Colors.value('red')`
-
-### Inheritance behavior
-
-Inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well.
-Sub classes can also provide extra enums as usual.
-
-``` ruby
-class PrimaryColors
+class OrderState
   include Ruby::Enum
 
-  define :RED, 'RED'
-  define :GREEN, 'GREEN'
-  define :BLUE, 'BLUE'
+  define :CREATED, 'created'
+  define :CREATED, 'recreated' # raises DuplicateKeyError
+end
+```
+
+Defining a duplicate value raises `Ruby::Enum::Errors::DuplicateValueError`.
+
+```ruby
+class OrderState
+  include Ruby::Enum
+
+  define :CREATED, 'created'
+  define :RECREATED, 'created' # raises DuplicateValueError
+end
+```
+
+The `DuplicateValueError` exception is raised to be consistent with the unique key constraint. Since keys are unique, there needs to be a way to map values to keys using `OrderState.value('created')`.
+
+### Inheritance
+
+When inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well. Sub classes can also provide extra enums, as usual.
+
+``` ruby
+class OrderState
+  include Ruby::Enum
+
+  define :CREATED, 'CREATED'
+  define :PAID, 'PAID'
 end
 
-class RainbowColors < PrimaryColors
-  define :ORANGE, 'ORANGE'
-  define :YELLOW, 'YELLOW'
-  define :INIDGO, 'INIDGO'
-  define :VIOLET, 'VIOLET'
+class ShippedOrderState < OrderState
+  define :PREPARED, 'PREPARED'
+  define :SHIPPED, 'SHIPPED'
 end
 ```
 
 ``` ruby
-RainbowColors::RED # 'RED'
-RainbowColors::ORANGE # 'ORANGE'
-RainbowColors::YELLOW # 'YELLOW'
-RainbowColors::GREEN # 'GREEN'
-RainbowColors::BLUE # 'BLUE'
-RainbowColors::INIDGO # 'INIDGO'
-RainbowColors::VIOLET # 'VIOLET'
+ShippedOrderState::CREATED # 'CREATED'
+ShippedOrderState::PAID # 'PAID'
+ShippedOrderState::PREPARED # 'PREPARED'
+ShippedOrderState::SHIPPED # 'SHIPPED'
 ```
 
 The `values` class method will enumerate the values from all base classes.
 
 ``` ruby
-PrimaryColors.values # ['RED', 'GREEN', 'BLUE']
-RainbowColors.values # ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INIDGO', 'VIOLET']
+OrderState.values # ['CREATED', 'PAID']
+ShippedOrderState.values # ['CREATED', 'PAID', 'PREPARED', SHIPPED']
 ```
 
 ## Contributing
 
-You're encouraged to contribute to this gem. See [CONTRIBUTING](CONTRIBUTING.md) for details.
+You're encouraged to contribute to ruby-enum. See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Copyright and License
 

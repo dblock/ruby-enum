@@ -23,7 +23,7 @@ jobs:
           - { ruby: 2.5, allowed-failure: false }
           - { ruby: 2.6, allowed-failure: false }
           - { ruby: 2.7, allowed-failure: false }
-          - { ruby: 3.0, allowed-failure: true }
+          - { ruby: 3.0, allowed-failure: false }
           - { ruby: ruby-head, allowed-failure: true }
           - { ruby: truffleruby-head, allowed-failure: true }
           - { ruby: jruby-head, allowed-failure: true }

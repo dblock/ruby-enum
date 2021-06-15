@@ -1,5 +1,6 @@
 ### 0.9.1 (Next)
 
+* [#38](https://github.com/dblock/ruby-enum/pull/38): Ensure Ruby >= 2.3 - [@ojab](https://github.com/ojab).
 * Your contribution here.
 
 ### 0.9.0 (2021/01/21)

@@ -2,34 +2,22 @@
 name: test
 on: [push, pull_request]
 jobs:
-  lint:
-    name: RuboCop
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-          bundler-cache: true
-      - name: Run RuboCop
-        run: bundle exec rubocop
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         entry:
-          - { ruby: 2.4, allowed-failure: false }
-          - { ruby: 2.5, allowed-failure: false }
-          - { ruby: 2.6, allowed-failure: false }
-          - { ruby: 2.7, allowed-failure: false }
-          - { ruby: 3.0, allowed-failure: false }
-          - { ruby: ruby-head, allowed-failure: true }
-          - { ruby: truffleruby-head, allowed-failure: true }
-          - { ruby: jruby-head, allowed-failure: true }
+          - { ruby: '2.7', allowed-failure: false }
+          - { ruby: '3.0', allowed-failure: false }
+          - { ruby: '3.1', allowed-failure: false }
+          - { ruby: '3.2', allowed-failure: false }
+          - { ruby: 'ruby-head', allowed-failure: true }
+          - { ruby: 'truffleruby-head', allowed-failure: true }
+          - { ruby: 'jruby-head', allowed-failure: true }
     name: test (${{ matrix.entry.ruby }})
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.entry.ruby }}

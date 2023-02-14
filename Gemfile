@@ -12,6 +12,8 @@ group :development, :test do
   gem 'danger-toc', '0.2.0'
   gem 'rspec', '~> 3.0'
   gem 'rubocop', '~> 1.0'
+  gem 'rubocop-rake'
+  gem 'rubocop-rspec'
 end
 
 group :test do

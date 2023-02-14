@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
   s.summary = 'Enum-like behavior for Ruby.'
   s.add_dependency 'i18n'
+  s.metadata['rubygems_mfa_required'] = 'true'
 end

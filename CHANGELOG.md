@@ -1,5 +1,6 @@
 ### 0.9.1 (Next)
 
+* [#40](https://github.com/dblock/ruby-enum/pull/39): Enable new Rubocop cops and address/allowlist lints - [@petergoldstein](https://github.com/petergoldstein).
 * [#39](https://github.com/dblock/ruby-enum/pull/39): Require Ruby >= 2.7 - [@petergoldstein](https://github.com/petergoldstein).
 * [#38](https://github.com/dblock/ruby-enum/pull/38): Ensure Ruby >= 2.3 - [@ojab](https://github.com/ojab).
 * Your contribution here.

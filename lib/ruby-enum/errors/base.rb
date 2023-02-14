@@ -22,7 +22,7 @@ module Ruby
           @summary = create_summary(key, attributes)
           @resolution = create_resolution(key, attributes)
 
-          "\nProblem:\n  #{@problem}"\
+          "\nProblem:\n  #{@problem}" \
           "\nSummary:\n  #{@summary}" + "\nResolution:\n  #{@resolution}"
         end
 

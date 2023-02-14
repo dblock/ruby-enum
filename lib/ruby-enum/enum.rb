@@ -144,9 +144,7 @@ module Ruby
       end
 
       def to_h
-        Hash[@_enum_hash.map do |key, enum|
-          [key, enum.value]
-        end]
+        @_enum_hash.transform_values(&:value)
       end
 
       private

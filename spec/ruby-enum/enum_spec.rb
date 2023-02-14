@@ -22,10 +22,12 @@ describe Ruby::Enum do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
   end
+
   it 'raises UninitializedConstantError on an invalid constant' do
     expect { Colors::ANYTHING }.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /The constant Colors::ANYTHING has not been defined./
   end
-  context '#each' do
+
+  describe '#each' do
     it 'iterates over constants' do
       keys = []
       enum_keys = []
@@ -40,7 +42,8 @@ describe Ruby::Enum do
       expect(enum_values).to eq %w[red green]
     end
   end
-  context '#map' do
+
+  describe '#map' do
     it 'maps constants' do
       key_key_values = Colors.map do |key, enum|
         [key, enum.key, enum.value]
@@ -50,87 +53,104 @@ describe Ruby::Enum do
       expect(key_key_values[1]).to eq [:GREEN, :GREEN, 'green']
     end
   end
-  context '#parse' do
+
+  describe '#parse' do
     it 'parses exact value' do
       expect(Colors.parse('red')).to eq(Colors::RED)
     end
+
     it 'is case-insensitive' do
       expect(Colors.parse('ReD')).to eq(Colors::RED)
     end
+
     it 'returns nil for a null value' do
       expect(Colors.parse(nil)).to be_nil
     end
+
     it 'returns nil for an invalid value' do
       expect(Colors.parse('invalid')).to be_nil
     end
   end
-  context '#key?' do
+
+  describe '#key?' do
     it 'returns true for valid keys accessed directly' do
       Colors.keys.each do |key| # rubocop:disable Style/HashEachMethods
-        expect(Colors.key?(key)).to eq(true)
+        expect(Colors.key?(key)).to be(true)
       end
     end
+
     it 'returns true for valid keys accessed via each_keys' do
       Colors.each_key do |key|
-        expect(Colors.key?(key)).to eq(true)
+        expect(Colors.key?(key)).to be(true)
       end
     end
+
     it 'returns false for invalid keys' do
-      expect(Colors.key?(:NOT_A_KEY)).to eq(false)
+      expect(Colors.key?(:NOT_A_KEY)).to be(false)
     end
   end
-  context '#value' do
+
+  describe '#value' do
     it 'returns string values for keys' do
       Colors.each do |key, enum|
         expect(Colors.value(key)).to eq(enum.value)
       end
     end
+
     it 'returns nil for an invalid key' do
       expect(Colors.value(:NOT_A_KEY)).to be_nil
     end
   end
-  context '#value?' do
+
+  describe '#value?' do
     it 'returns true for valid values accessed directly' do
       Colors.values.each do |value| # rubocop:disable Style/HashEachMethods
-        expect(Colors.value?(value)).to eq(true)
+        expect(Colors.value?(value)).to be(true)
       end
     end
+
     it 'returns true for valid values accessed via each_value' do
       Colors.each_value do |value|
-        expect(Colors.value?(value)).to eq(true)
+        expect(Colors.value?(value)).to be(true)
       end
     end
+
     it 'returns false for invalid values' do
-      expect(Colors.value?('I am not a value')).to eq(false)
+      expect(Colors.value?('I am not a value')).to be(false)
     end
   end
-  context '#key' do
+
+  describe '#key' do
     it 'returns enum instances for values' do
       Colors.each do |_, enum|
         expect(Colors.key(enum.value)).to eq(enum.key)
       end
     end
+
     it 'returns nil for an invalid value' do
       expect(Colors.key('invalid')).to be_nil
     end
   end
-  context '#keys' do
+
+  describe '#keys' do
     it 'returns keys' do
       expect(Colors.keys).to eq(%i[RED GREEN])
     end
   end
-  context '#values' do
+
+  describe '#values' do
     it 'returns values' do
       expect(Colors.values).to eq(%w[red green])
     end
   end
-  context '#to_h' do
+
+  describe '#to_h' do
     it 'returns a hash of key:values' do
       expect(Colors.to_h).to eq(RED: 'red', GREEN: 'green')
     end
   end
 
-  context 'on duplicate keys' do
+  context 'when a duplicate key is used' do
     it 'raises DuplicateKeyError' do
       expect do
         Colors.class_eval do
@@ -140,7 +160,7 @@ describe Ruby::Enum do
     end
   end
 
-  context 'on duplicate values' do
+  context 'when a duplicate value is used' do
     it 'raises a DuplicateValueError' do
       expect do
         Colors.class_eval do
@@ -176,11 +196,14 @@ describe Ruby::Enum do
     it 'contains its own enums' do
       expect(FirstSubclass::ORANGE).to eq 'orange'
     end
+
     it 'parent class should not have enums defined in child classes' do
       expect { Colors::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
     end
-    context 'Given a 2 level depth subclass' do
+
+    context 'when defining a 2 level depth subclass' do
       subject { SecondSubclass }
+
       it 'contains its own enums and all the enums defined in the parent classes' do
         expect(subject::RED).to eq 'red'
         expect(subject::GREEN).to eq 'green'
@@ -227,6 +250,7 @@ describe Ruby::Enum do
       define :undefined
     end
     subject { States }
+
     it 'behaves like an enum' do
       expect(subject.created).to eq 'Created'
       expect(subject.published).to eq 'Published'

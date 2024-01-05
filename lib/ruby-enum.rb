@@ -4,6 +4,7 @@ require 'i18n'
 
 require 'ruby-enum/version'
 require 'ruby-enum/enum'
+require 'ruby-enum/enum/case'
 
 I18n.load_path << File.join(File.dirname(__FILE__), 'config', 'locales', 'en.yml')
 

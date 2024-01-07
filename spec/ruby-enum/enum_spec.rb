@@ -122,7 +122,7 @@ describe Ruby::Enum do
 
   describe '#key' do
     it 'returns enum instances for values' do
-      Colors.each do |_, enum|
+      Colors.each do |_, enum| # rubocop:disable Style/HashEachMethods
         expect(Colors.key(enum.value)).to eq(enum.key)
       end
     end

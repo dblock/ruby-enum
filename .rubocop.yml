@@ -12,6 +12,12 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
 
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+
 Style/HashEachMethods:
   Enabled: true
 

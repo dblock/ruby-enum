@@ -33,14 +33,6 @@ Naming/MethodParameterName:
 RSpec/ExampleLength:
   Max: 11
 
-# Offense count: 2
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, SpecSuffixOnly.
-# Include: **/*_spec*rb*, **/spec/**/*
-RSpec/FilePath:
-  Exclude:
-    - 'spec/ruby-enum/enum_spec.rb'
-    - 'spec/ruby-enum/version_spec.rb'
-
 # Offense count: 4
 RSpec/LeakyConstantDeclaration:
   Exclude:

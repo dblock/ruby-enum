@@ -24,6 +24,8 @@ Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.c
     - [Mapping values to keys](#mapping-values-to-keys)
   - [Duplicate enumerator keys or duplicate values](#duplicate-enumerator-keys-or-duplicate-values)
   - [Inheritance](#inheritance)
+  - [Exhaustive case matcher](#exhaustive-case-matcher)
+- [Benchmarks](#benchmarks)
 - [Contributing](#contributing)
 - [Copyright and License](#copyright-and-license)
 - [Related Projects](#related-projects)
@@ -257,6 +259,53 @@ The `values` class method will enumerate the values from all base classes.
 ``` ruby
 OrderState.values # ['CREATED', 'PAID']
 ShippedOrderState.values # ['CREATED', 'PAID', 'PREPARED', SHIPPED']
+```
+
+### Exhaustive case matcher
+
+If you want to make sure that you cover all cases in a case stament, you can use the exhaustive case matcher: `Ruby::Enum::Case`. It will raise an error if a case/enum value is not handled, or if a value is specified that's not part of the enum. This is inspired by the [Rust Pattern Syntax](https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html). If multiple cases match, all matches are being executed. The return value is the value from the matched case, or an array of return values if multiple cases matched.
+
+> NOTE: This will add checks at runtime which might lead to worse performance. See [benchmarks](#benchmarks).
+
+> NOTE: `:else` is a reserved keyword if you want to use `Ruby::Enum::Case`.
+
+```ruby
+class Color < OrderState
+  include Ruby::Enum
+  include Ruby::Enum::Case
+
+  define :RED, :red
+  define :GREEN, :green
+  define :BLUE, :blue
+  define :YELLOW, :yellow
+end
+```
+
+```ruby
+color = Color::RED
+Color.Case(color, {
+  [Color::GREEN, Color::BLUE] => -> { "order is green or blue" },
+  Color::YELLOW => -> { "order is yellow" },
+  Color::RED => -> { "order is red" },
+})
+```
+
+It also supports default/else:
+
+```ruby
+color = Color::RED
+Color.Case(color, {
+  [Color::GREEN, Color::BLUE] => -> { "order is green or blue" },
+  else: -> { "order is yellow or red" },
+})
+```
+
+## Benchmarks
+
+Benchmark scripts are defined in the [`benchmarks`](benchmarks) folder and can be run with Rake:
+
+```console
+rake benchmarks:case
 ```
 
 ## Contributing

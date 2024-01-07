@@ -16,3 +16,10 @@ require 'rubocop/rake_task'
 RuboCop::RakeTask.new(:rubocop)
 
 task default: %i[rubocop spec]
+
+namespace :benchmark do
+  desc 'Run benchmark for the Ruby::Enum::Case'
+  task :case do
+    require_relative 'benchmarks/case'
+  end
+end

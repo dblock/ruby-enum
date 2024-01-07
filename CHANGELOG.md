@@ -1,4 +1,4 @@
-### 0.9.1 (Next)
+### 1.0.0 (Next)
 
 * [#43](https://github.com/dblock/ruby-enum/pull/43): Add exhaustive case matcher - [@peterfication](https://github.com/peterfication).
 * [#40](https://github.com/dblock/ruby-enum/pull/39): Enable new Rubocop cops and address/allowlist lints - [@petergoldstein](https://github.com/petergoldstein).

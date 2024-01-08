@@ -2,6 +2,11 @@
 
 module Ruby
   module Enum
+    class << self
+      # Needed for I18n mock
+      attr_accessor :i18n
+    end
+
     attr_reader :key, :value
 
     def initialize(key, value)

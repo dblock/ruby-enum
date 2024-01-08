@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+source 'http://rubygems.org'
+
+gemspec path: '../', name: 'ruby-enum'
+
+# This Gemfile should not include any gem that has i18n as a dependency.
+gem 'rake'
+gem 'rspec', '~> 3.0'

@@ -23,8 +23,24 @@ describe Ruby::Enum do
     expect(Colors::GREEN).to eq 'green'
   end
 
-  it 'raises UninitializedConstantError on an invalid constant' do
-    expect { Colors::ANYTHING }.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /The constant Colors::ANYTHING has not been defined./
+  context 'when the i18n gem is loaded' do
+    it 'raises UninitializedConstantError on an invalid constant' do
+      expect do
+        Colors::ANYTHING
+      end.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /The constant Colors::ANYTHING has not been defined./
+    end
+  end
+
+  context 'when the i18n gem is not loaded' do
+    before do
+      allow(described_class).to receive(:i18n).and_return(Ruby::Enum::I18nMock)
+    end
+
+    it 'raises UninitializedConstantError on an invalid constant' do
+      expect do
+        Colors::ANYTHING
+      end.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /ruby.enum.errors.messages.uninitialized_constant.summary/
+    end
   end
 
   describe '#each' do
@@ -151,22 +167,54 @@ describe Ruby::Enum do
   end
 
   context 'when a duplicate key is used' do
-    it 'raises DuplicateKeyError' do
-      expect do
-        Colors.class_eval do
-          define :RED, 'some'
-        end
-      end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /The constant Colors::RED has already been defined./
+    context 'when the i18n gem is loaded' do
+      it 'raises DuplicateKeyError' do
+        expect do
+          Colors.class_eval do
+            define :RED, 'some'
+          end
+        end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /The constant Colors::RED has already been defined./
+      end
+    end
+
+    context 'when the i18n gem is not loaded' do
+      before do
+        allow(described_class).to receive(:i18n).and_return(Ruby::Enum::I18nMock)
+      end
+
+      it 'raises DuplicateKeyError' do
+        expect do
+          Colors.class_eval do
+            define :RED, 'some'
+          end
+        end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /ruby.enum.errors.messages.duplicate_key.message/
+      end
     end
   end
 
   context 'when a duplicate value is used' do
-    it 'raises a DuplicateValueError' do
-      expect do
-        Colors.class_eval do
-          define :Other, 'red'
-        end
-      end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /The value red has already been defined./
+    context 'when the i18n gem is loaded' do
+      it 'raises a DuplicateValueError' do
+        expect do
+          Colors.class_eval do
+            define :Other, 'red'
+          end
+        end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /The value red has already been defined./
+      end
+    end
+
+    context 'when the i18n gem is not loaded' do
+      before do
+        allow(described_class).to receive(:i18n).and_return(Ruby::Enum::I18nMock)
+      end
+
+      it 'raises a DuplicateValueError' do
+        expect do
+          Colors.class_eval do
+            define :Other, 'red'
+          end
+        end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /ruby.enum.errors.messages.duplicate_value.summary/
+      end
     end
   end
 

@@ -25,6 +25,7 @@ Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.c
   - [Duplicate enumerator keys or duplicate values](#duplicate-enumerator-keys-or-duplicate-values)
   - [Inheritance](#inheritance)
   - [Exhaustive case matcher](#exhaustive-case-matcher)
+  - [I18n support](#i18n-support)
 - [Benchmarks](#benchmarks)
 - [Contributing](#contributing)
 - [Copyright and License](#copyright-and-license)
@@ -298,6 +299,15 @@ Color.Case(color, {
   [Color::GREEN, Color::BLUE] => -> { "order is green or blue" },
   else: -> { "order is yellow or red" },
 })
+```
+
+### I18n support
+
+This gem has an optional dependency to `i18n`. If it's available, the error messages will have a nice description and can be translated. If it's not available, the errors will only contain the message keys.
+
+```ruby
+# Add this to your Gemfile if you want to have a nice error description instead of just a message key.
+gem "i18n"
 ```
 
 ## Benchmarks

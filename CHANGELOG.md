@@ -1,5 +1,6 @@
 ### 1.0.0 (Next)
 
+* [#41](https://github.com/dblock/ruby-enum/pull/41): Make i18n dependency optional - [@peterfication](https://github.com/peterfication).
 * [#43](https://github.com/dblock/ruby-enum/pull/43): Add exhaustive case matcher - [@peterfication](https://github.com/peterfication).
 * [#40](https://github.com/dblock/ruby-enum/pull/39): Enable new Rubocop cops and address/allowlist lints - [@petergoldstein](https://github.com/petergoldstein).
 * [#39](https://github.com/dblock/ruby-enum/pull/39): Require Ruby >= 2.7 - [@petergoldstein](https://github.com/petergoldstein).

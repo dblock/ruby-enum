@@ -1,3 +1,7 @@
+### Next
+
+* Your contribution here.
+
 ### 1.0.0 (2023/01/10)
 
 * [#41](https://github.com/dblock/ruby-enum/pull/41): Make i18n dependency optional - [@peterfication](https://github.com/peterfication).

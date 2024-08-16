@@ -157,6 +157,18 @@ describe Ruby::Enum do
     it 'returns values' do
       expect(Colors.values).to eq(%w[red green])
     end
+
+    context 'when a subclass is defined' do
+      it 'returns all values' do
+        expect(FirstSubclass.values).to eq(%w[red green orange])
+      end
+    end
+
+    context 'when a subclass of a subclass is defined' do
+      it 'returns all values' do
+        expect(SecondSubclass.values).to eq(%w[red green orange pink])
+      end
+    end
   end
 
   describe '#to_h' do

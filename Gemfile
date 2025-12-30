@@ -9,10 +9,10 @@ gem 'rake'
 group :development, :test do
   gem 'danger'
   gem 'danger-changelog'
-  gem 'danger-toc'
   gem 'danger-pr-comment'
-  gem 'rspec', '~> 3.0'
-  gem 'rubocop', '~> 1.0'
+  gem 'danger-toc'
+  gem 'rspec'
+  gem 'rubocop', '1.82.1'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
 end

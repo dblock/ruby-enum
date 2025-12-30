@@ -1,5 +1,6 @@
 ### 1.0.1 (Next)
 
+* [#53](https://github.com/dblock/ruby-enum/pull/53): Replace code climate with coveralls - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 1.0.0 (2023/01/10)

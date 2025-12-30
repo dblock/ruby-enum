@@ -10,12 +10,8 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.2
-    - uses: amancevice/setup-code-climate@v0
-      with:
-        cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
-    - run: cc-test-reporter before-build
+        bundler-cache: true
     - name: Build and test with RSpec
-      run: |
-        bundle install --jobs 4 --retry 3
-        bundle exec rspec
-    - run: cc-test-reporter after-build
+      run: bundle exec rspec
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}

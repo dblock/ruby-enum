@@ -1,22 +1,10 @@
----
 name: danger
+
 on:
   pull_request:
     types: [opened, reopened, edited, synchronize]
+
 jobs:
   danger:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.7
-        bundler-cache: true
-    - name: Run Danger
-      run: |
-        # the personal token is public, this is ok, base64 encode to avoid tripping Github
-        TOKEN=$(echo -n Z2hwX0xNQ3VmanBFeTBvYkZVTWh6NVNqVFFBOEUxU25abzBqRUVuaAo= | base64 --decode)
-        DANGER_GITHUB_API_TOKEN=$TOKEN bundle exec danger --verbose
+    uses: numbata/danger-pr-comment/.github/workflows/danger-run.yml@main
+    secrets: inherit

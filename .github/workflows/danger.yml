@@ -8,3 +8,6 @@ jobs:
   danger:
     uses: numbata/danger-pr-comment/.github/workflows/danger-run.yml@main
     secrets: inherit
+    with:
+      ruby-version: '3.1'
+      bundler-cache: true

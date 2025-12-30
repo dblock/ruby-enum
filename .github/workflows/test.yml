@@ -12,6 +12,7 @@ jobs:
           - { ruby: '3.0', allowed-failure: false }
           - { ruby: '3.1', allowed-failure: false }
           - { ruby: '3.2', allowed-failure: false }
+          - { ruby: '4.0', allowed-failure: false }
           - { ruby: 'ruby-head', allowed-failure: true }
           - { ruby: 'truffleruby-head', allowed-failure: true }
           - { ruby: 'jruby-head', allowed-failure: true }

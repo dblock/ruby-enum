@@ -2,7 +2,7 @@ Ruby::Enum
 ==========
 
 [![Gem Version](http://img.shields.io/gem/v/ruby-enum.svg)](http://badge.fury.io/rb/ruby-enum)
-[![Build Status](https://github.com/dblock/ruby-enum/workflows/test/badge.svg?branch=master)](https://github.com/dblock/ruby-enum/actions)
+[![Test](https://github.com/dblock/ruby-enum/actions/workflows/test.yml/badge.svg)](https://github.com/dblock/ruby-enum/actions/workflows/test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/dblock/ruby-enum/badge.svg?branch=master)](https://coveralls.io/github/dblock/ruby-enum?branch=master)
 
 Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.com/enumerations-and-ruby), and improved upon [another blog post](http://code.dblock.org/how-to-define-enums-in-ruby).

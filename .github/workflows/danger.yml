@@ -1,4 +1,4 @@
-name: danger
+name: Danger
 
 on:
   pull_request:

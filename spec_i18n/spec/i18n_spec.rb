@@ -2,18 +2,20 @@
 
 require 'spec_helper'
 
-test_class = Class.new do
-  include Ruby::Enum
+module I18n
+  class Colors
+    include Ruby::Enum
 
-  define :RED, 'red'
-  define :GREEN, 'green'
+    define :RED, 'red'
+    define :GREEN, 'green'
+  end
 end
 
 describe Ruby::Enum do
   context 'when the i18n gem is not loaded' do
     it 'raises UninitializedConstantError on an invalid constant' do
       expect do
-        test_class::ANYTHING
+        I18n::Colors::ANYTHING
       end.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /ruby.enum.errors.messages.uninitialized_constant.summary/
     end
 
@@ -24,7 +26,7 @@ describe Ruby::Enum do
 
       it 'raises DuplicateKeyError' do
         expect do
-          test_class.class_eval do
+          I18n::Colors.class_eval do
             define :RED, 'some'
           end
         end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /ruby.enum.errors.messages.duplicate_key.message/
@@ -38,7 +40,7 @@ describe Ruby::Enum do
 
       it 'raises a DuplicateValueError' do
         expect do
-          test_class.class_eval do
+          I18n::Colors.class_eval do
             define :Other, 'red'
           end
         end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /ruby.enum.errors.messages.duplicate_value.summary/

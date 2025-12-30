@@ -26,9 +26,9 @@ module Ruby
           "\nSummary:\n  #{@summary}" + "\nResolution:\n  #{@resolution}"
         end
 
-        private
-
         BASE_KEY = 'ruby.enum.errors.messages' # :nodoc:
+
+        private
 
         # Given the key of the specific error and the options hash, translate the
         # message.

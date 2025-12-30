@@ -2,22 +2,21 @@
 
 require 'spec_helper'
 
-class Colors
-  include Ruby::Enum
-
-  define :RED, 'red'
-  define :GREEN, 'green'
-end
-
-class FirstSubclass < Colors
-  define :ORANGE, 'orange'
-end
-
-class SecondSubclass < FirstSubclass
-  define :PINK, 'pink'
-end
-
 describe Ruby::Enum do
+  class Colors
+    include Ruby::Enum
+
+    define :RED, 'red'
+    define :GREEN, 'green'
+  end
+
+  class FirstSubclass < Colors
+    define :ORANGE, 'orange'
+  end
+
+  class SecondSubclass < FirstSubclass
+    define :PINK, 'pink'
+  end
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -250,29 +249,23 @@ describe Ruby::Enum do
     end
 
     context 'when defining a 2 level depth subclass' do
-      subject { SecondSubclass }
-
       it 'contains its own enums and all the enums defined in the parent classes' do
-        expect(subject::RED).to eq 'red'
-        expect(subject::GREEN).to eq 'green'
-        expect(subject::ORANGE).to eq 'orange'
-        expect(subject::PINK).to eq 'pink'
+        expect(SecondSubclass::RED).to eq 'red'
+        expect(SecondSubclass::GREEN).to eq 'green'
+        expect(SecondSubclass::ORANGE).to eq 'orange'
+        expect(SecondSubclass::PINK).to eq 'pink'
       end
 
       describe '#values' do
-        subject { SecondSubclass.values }
-
         it 'contains the values from all of the parent classes' do
-          expect(subject).to eq(%w[red green orange pink])
+          expect(SecondSubclass.values).to eq(%w[red green orange pink])
         end
       end
     end
 
     describe '#values' do
-      subject { FirstSubclass.values }
-
       it 'contains the values from the parent class' do
-        expect(subject).to eq(%w[red green orange])
+        expect(FirstSubclass.values).to eq(%w[red green orange])
       end
     end
   end
@@ -280,41 +273,40 @@ describe Ruby::Enum do
   describe 'default value' do
     class Default
       include Ruby::Enum
+
       define :KEY
     end
 
-    subject { Default::KEY }
-
     it 'equals the key' do
-      expect(subject).to eq(:KEY)
+      expect(Default::KEY).to eq(:KEY)
     end
   end
 
   describe 'non constant definitions' do
     class States
       include Ruby::Enum
+
       define :created, 'Created'
       define :published, 'Published'
       define :undefined
     end
-    subject { States }
 
     it 'behaves like an enum' do
-      expect(subject.created).to eq 'Created'
-      expect(subject.published).to eq 'Published'
-      expect(subject.undefined).to eq :undefined
+      expect(States.created).to eq 'Created'
+      expect(States.published).to eq 'Published'
+      expect(States.undefined).to eq :undefined
 
-      expect(subject.key?(:created)).to be true
-      expect(subject.key('Created')).to eq :created
+      expect(States.key?(:created)).to be true
+      expect(States.key('Created')).to eq :created
 
-      expect(subject.value?('Created')).to be true
-      expect(subject.value(:created)).to eq 'Created'
+      expect(States.value?('Created')).to be true
+      expect(States.value(:created)).to eq 'Created'
 
-      expect(subject.key?(:undefined)).to be true
-      expect(subject.key(:undefined)).to eq :undefined
+      expect(States.key?(:undefined)).to be true
+      expect(States.key(:undefined)).to eq :undefined
 
-      expect(subject.value?(:undefined)).to be true
-      expect(subject.value(:undefined)).to eq :undefined
+      expect(States.value?(:undefined)).to be true
+      expect(States.value(:undefined)).to eq :undefined
     end
   end
 end

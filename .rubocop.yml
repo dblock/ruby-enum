@@ -1,7 +1,3 @@
-require:
-  - rubocop-rake
-  - rubocop-rspec
-
 AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
@@ -15,7 +11,7 @@ Metrics/BlockLength:
 RSpec/SpecFilePathFormat:
   Enabled: false
 
-RSpec/FilePath:
+Style/LineLength:
   Enabled: false
 
 Style/HashEachMethods:
@@ -27,4 +23,32 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
+Naming/FileName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
+
 inherit_from: .rubocop_todo.yml
+
+plugins:
+  - rubocop-rake
+  - rubocop-rspec

@@ -17,6 +17,13 @@ describe Ruby::Enum do
   class SecondSubclass < FirstSubclass
     define :PINK, 'pink'
   end
+
+  class OtherSecondSubclass < FirstSubclass
+    include Ruby::Enum
+
+    define :MAGENTA, 'magenta'
+  end
+
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -167,6 +174,12 @@ describe Ruby::Enum do
     context 'when a subclass of a subclass is defined' do
       it 'returns all values' do
         expect(SecondSubclass.values).to eq(%w[red green orange pink])
+      end
+    end
+
+    context 'when a subclass of a subclass is defined with redundant module inclusion' do
+      it 'returns all values' do
+        expect(OtherSecondSubclass.values).to eq(%w[red green orange magenta])
       end
     end
   end

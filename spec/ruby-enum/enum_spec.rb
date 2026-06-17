@@ -242,13 +242,12 @@ describe Ruby::Enum do
     end
   end
 
-  # rubocop:disable Rspec/DescribedClass
   describe 'Reloading enum definition' do
-    it 'plays nice with lazy loading in Ruby on Rails' do
+    it 'can be lazy reloaded' do
       class_body = proc do
         include Ruby::Enum
 
-        define :BALD, 'bald'
+        define :BUZZ_CUT, 'buzz_cut'
       end
 
       HairStyles = Class.new(&class_body)
@@ -256,7 +255,6 @@ describe Ruby::Enum do
       expect { HairStyles.class_eval(&class_body) }.not_to raise_error
     end
   end
-  # rubocop:enable Rspec/DescribedClass
 
   describe 'Given a class that has not defined any enums' do
     class EmptyEnums

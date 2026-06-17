@@ -250,9 +250,36 @@ describe Ruby::Enum do
         define :BUZZ_CUT, 'buzz_cut'
       end
 
-      HairStyles = Class.new(&class_body)
+      hair_styles = Class.new(&class_body)
 
-      expect { HairStyles.class_eval(&class_body) }.not_to raise_error
+      expect { hair_styles.class_eval(&class_body) }.not_to raise_error
+    end
+
+    context 'when a subclass is defined' do
+      it 'NEEDS to include Ruby::Enum explicitly to be lazy reloaded' do
+        hair_styles = Class.new do
+          include Ruby::Enum
+
+          define :BUZZ_CUT, 'buzz_cut'
+        end
+
+        broken_subclass_body = proc do
+          define :PONYTAIL, 'ponytail'
+        end
+        broken_subclass = Class.new(hair_styles, &broken_subclass_body)
+        expect { broken_subclass.class_eval(&broken_subclass_body) }
+          .to raise_error Ruby::Enum::Errors::DuplicateKeyError, /PONYTAIL/
+
+        subclass_body = proc do
+          include Ruby::Enum
+
+          define :PONYTAIL, 'ponytail'
+        end
+        more_hair_styles = Class.new(hair_styles, &subclass_body)
+
+        expect { more_hair_styles.class_eval(&subclass_body) }.not_to raise_error
+        expect(more_hair_styles.values).to eq(%w[buzz_cut ponytail])
+      end
     end
   end
 

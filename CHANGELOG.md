@@ -1,3 +1,7 @@
+### 1.2.0 (Next)
+
+* Your contribution here.
+
 ### 1.1.0 (2026/6/20)
 
 * [#56](https://github.com/dblock/ruby-enum/pull/56): Fix `DuplicateKeyError` when the enum class is reloaded - [@flvrone](https://github.com/flvrone).

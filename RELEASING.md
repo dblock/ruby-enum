@@ -11,7 +11,7 @@ bundle install
 rake
 ```
 
-Check that the last build succeeded in [Travis CI](https://travis-ci.org/dblock/ruby-enum) for all supported platforms.
+Check that the last build succeeded in [GitHub Actions](https://github.com/dblock/ruby-enum/actions) for all supported platforms.
 
 Add a date to this release in [CHANGELOG.md](CHANGELOG.md).
 
@@ -28,15 +28,24 @@ git add README.md CHANGELOG.md lib/ruby-enum/version.rb
 git commit -m "Preparing for release, 0.2.2."
 ```
 
-Release.
+Release. If you have MFA enabled on RubyGems (you should), `rake release` will build the gem, tag it, and push commits/tags to GitHub, but fail at the RubyGems push. Push the gem manually with your OTP.
 
 ```
 $ rake release
 
-ruby-enum 0.2.2 built to pkg/ruby-enum-0.2.2.gem.
-Tagged v0.2.2.
+ruby-enum 1.1.0 built to pkg/ruby-enum-1.1.0.gem.
+Tagged v1.1.0.
 Pushed git commits and tags.
-Pushed ruby-enum 0.2.2 to rubygems.org.
+...
+You have enabled multi-factor authentication. Please enter OTP code.
+```
+
+Then push to RubyGems manually:
+
+```
+$ gem push pkg/ruby-enum-1.1.0.gem --otp <OTP>
+Pushing gem to https://rubygems.org...
+Successfully registered gem: ruby-enum (1.1.0)
 ```
 
 ### Prepare for the Next Version

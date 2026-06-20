@@ -1,5 +1,6 @@
 ### 1.1.0 (Next)
 
+* [#56](https://github.com/dblock/ruby-enum/pull/56): Fix `DuplicateKeyError` when the enum class is reloaded - [@flvrone](https://github.com/flvrone).
 * [#54](https://github.com/dblock/ruby-enum/pull/54): Add support for Ruby 4.0 - [@dblock](https://github.com/dblock).
 * [#53](https://github.com/dblock/ruby-enum/pull/53): Replace code climate with coveralls - [@dblock](https://github.com/dblock).
 * Your contribution here.

@@ -19,6 +19,9 @@ module Ruby
       base.extend ClassMethods
 
       base.private_class_method(:new)
+
+      base.instance_variable_set(:@_enum_hash, {})
+      base.instance_variable_set(:@_enums_by_value, {})
     end
 
     module ClassMethods

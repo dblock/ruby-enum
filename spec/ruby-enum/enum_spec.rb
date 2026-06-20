@@ -17,6 +17,13 @@ describe Ruby::Enum do
   class SecondSubclass < FirstSubclass
     define :PINK, 'pink'
   end
+
+  class OtherSecondSubclass < FirstSubclass
+    include Ruby::Enum
+
+    define :MAGENTA, 'magenta'
+  end
+
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -169,6 +176,12 @@ describe Ruby::Enum do
         expect(SecondSubclass.values).to eq(%w[red green orange pink])
       end
     end
+
+    context 'when a subclass of a subclass is defined with redundant module inclusion' do
+      it 'returns all values' do
+        expect(OtherSecondSubclass.values).to eq(%w[red green orange magenta])
+      end
+    end
   end
 
   describe '#to_h' do
@@ -225,6 +238,47 @@ describe Ruby::Enum do
             define :Other, 'red'
           end
         end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /ruby.enum.errors.messages.duplicate_value.summary/
+      end
+    end
+  end
+
+  describe 'Reloading enum definition' do
+    it 'can be lazy reloaded' do
+      class_body = proc do
+        include Ruby::Enum
+
+        define :BUZZ_CUT, 'buzz_cut'
+      end
+
+      hair_styles = Class.new(&class_body)
+
+      expect { hair_styles.class_eval(&class_body) }.not_to raise_error
+    end
+
+    context 'when a subclass is defined' do
+      it 'NEEDS to include Ruby::Enum explicitly to be lazy reloaded' do
+        hair_styles = Class.new do
+          include Ruby::Enum
+
+          define :BUZZ_CUT, 'buzz_cut'
+        end
+
+        broken_subclass_body = proc do
+          define :PONYTAIL, 'ponytail'
+        end
+        broken_subclass = Class.new(hair_styles, &broken_subclass_body)
+        expect { broken_subclass.class_eval(&broken_subclass_body) }
+          .to raise_error Ruby::Enum::Errors::DuplicateKeyError, /PONYTAIL/
+
+        subclass_body = proc do
+          include Ruby::Enum
+
+          define :PONYTAIL, 'ponytail'
+        end
+        more_hair_styles = Class.new(hair_styles, &subclass_body)
+
+        expect { more_hair_styles.class_eval(&subclass_body) }.not_to raise_error
+        expect(more_hair_styles.values).to eq(%w[buzz_cut ponytail])
       end
     end
   end

@@ -11,7 +11,7 @@ Metrics/BlockLength:
 RSpec/SpecFilePathFormat:
   Enabled: false
 
-Style/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Style/HashEachMethods:
@@ -36,6 +36,9 @@ RSpec/NestedGroups:
   Enabled: false
 
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/DescribedClass:
   Enabled: false
 
 RSpec/MultipleExpectations:

@@ -4,8 +4,8 @@ require 'spec_helper'
 
 module Case
   class Colors
-    include Ruby::Enum
-    include Ruby::Enum::Case
+    include RubyEnum::Enum
+    include RubyEnum::Enum::Case
 
     define :RED, :red
     define :GREEN, :green
@@ -13,7 +13,7 @@ module Case
   end
 end
 
-RSpec.describe Ruby::Enum::Case do
+RSpec.describe RubyEnum::Enum::Case do
   describe '.case' do
     context 'when all cases are defined' do
       subject { Case::Colors.case(Case::Colors::RED, cases) }
@@ -81,7 +81,7 @@ RSpec.describe Ruby::Enum::Case do
             Case::Colors::RED,
             { [Case::Colors::RED, Case::Colors::GREEN] => -> { 'red or green' } }
           )
-        end.to raise_error(Ruby::Enum::Case::ClassMethods::NotAllCasesHandledError)
+        end.to raise_error(RubyEnum::Enum::Case::ClassMethods::NotAllCasesHandledError)
       end
     end
 
@@ -112,7 +112,7 @@ RSpec.describe Ruby::Enum::Case do
               :something => -> { 'green' }
             }
           )
-        end.to raise_error(Ruby::Enum::Case::ClassMethods::ValuesNotDefinedError)
+        end.to raise_error(RubyEnum::Enum::Case::ClassMethods::ValuesNotDefinedError)
       end
     end
   end

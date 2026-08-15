@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ruby
+module RubyEnum
   module Enum
     module Errors
       class UninitializedConstantError < Base

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ruby
+module RubyEnum
   module Enum
     class << self
       # Needed for I18n mock
@@ -53,7 +53,7 @@ module Ruby
       end
 
       def const_missing(key)
-        raise Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
+        raise RubyEnum::Enum::Errors::UninitializedConstantError, name: name, key: key
       end
 
       # Iterate over all enumerated values.
@@ -128,7 +128,7 @@ module Ruby
       def values
         result = @_enum_hash.values.map(&:value)
 
-        if superclass < Ruby::Enum
+        if superclass < RubyEnum::Enum
           superclass.values + result
         else
           result
@@ -164,13 +164,13 @@ module Ruby
       def validate_key!(key)
         return unless @_enum_hash.key?(key)
 
-        raise Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
+        raise RubyEnum::Enum::Errors::DuplicateKeyError, name: name, key: key
       end
 
       def validate_value!(value)
         return unless @_enums_by_value.key?(value)
 
-        raise Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
+        raise RubyEnum::Enum::Errors::DuplicateValueError, name: name, value: value
       end
     end
   end

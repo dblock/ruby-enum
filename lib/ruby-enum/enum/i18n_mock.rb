@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # :nocov:
-module Ruby
+module RubyEnum
   module Enum
     ##
     # Mock I18n module in case the i18n gem is not available.

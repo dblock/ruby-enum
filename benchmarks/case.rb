@@ -8,8 +8,8 @@ require 'ruby-enum'
 ##
 # Test enum
 class Color
-  include Ruby::Enum
-  include Ruby::Enum::Case
+  include RubyEnum::Enum
+  include RubyEnum::Enum::Case
 
   define :RED, :red
   define :GREEN, :green

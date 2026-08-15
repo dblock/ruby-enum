@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Ruby
+module RubyEnum
   module Enum
-    VERSION = '1.2.0'
+    VERSION = '2.0.0'
   end
 end

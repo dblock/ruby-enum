@@ -1,5 +1,6 @@
-### 1.2.0 (Next)
+### 2.0.0 (Next)
 
+* [#55](https://github.com/dblock/ruby-enum/issues/55): Renamed `Ruby::Enum` to `RubyEnum::Enum` since Ruby 4.0 reserves the top-level `Ruby` module - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 1.1.0 (2026/6/20)

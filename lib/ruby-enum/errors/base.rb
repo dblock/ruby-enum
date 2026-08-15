@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ruby
+module RubyEnum
   module Enum
     module Errors
       class Base < StandardError
@@ -39,7 +39,7 @@ module Ruby
         #
         # Returns a localized error message string.
         def translate(key, options)
-          Ruby::Enum.i18n.translate("#{BASE_KEY}.#{key}", locale: :en, **options).strip
+          RubyEnum::Enum.i18n.translate("#{BASE_KEY}.#{key}", locale: :en, **options).strip
         end
 
         # Create the problem.

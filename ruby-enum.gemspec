@@ -5,7 +5,7 @@ require 'ruby-enum/version'
 
 Gem::Specification.new do |s|
   s.name = 'ruby-enum'
-  s.version = Ruby::Enum::VERSION
+  s.version = RubyEnum::Enum::VERSION
   s.authors = ['Daniel Doubrovkine']
   s.email = 'dblock@dblock.org'
   s.platform = Gem::Platform::RUBY

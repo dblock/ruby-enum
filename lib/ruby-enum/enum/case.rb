@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-module Ruby
+module RubyEnum
   module Enum
     ##
     # Adds a method to an enum class that allows for exhaustive matching on a value.
     #
     # @example
     # class Color
-    #   include Ruby::Enum
-    #   include Ruby::Enum::Case
+    #   include RubyEnum::Enum
+    #   include RubyEnum::Enum::Case
     #
     #   define :RED, :red
     #   define :GREEN, :green
@@ -33,7 +33,7 @@ module Ruby
       end
 
       ##
-      # @see Ruby::Enum::Case
+      # @see RubyEnum::Enum::Case
       module ClassMethods
         class ValuesNotDefinedError < StandardError
         end

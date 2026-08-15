@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ruby
+module RubyEnum
   module Enum
     module Errors
       # Error raised when a duplicate enum key is found

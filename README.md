@@ -1,4 +1,4 @@
-Ruby::Enum
+RubyEnum::Enum
 ==========
 
 [![Gem Version](http://img.shields.io/gem/v/ruby-enum.svg)](http://badge.fury.io/rb/ruby-enum)
@@ -41,7 +41,7 @@ Define enums, and reference them as constants.
 
 ``` ruby
 class OrderState
-  include Ruby::Enum
+  include RubyEnum::Enum
 
   define :CREATED, 'created'
   define :PAID, 'paid'
@@ -51,7 +51,7 @@ end
 ``` ruby
 OrderState::CREATED # 'created'
 OrderState::PAID # 'paid'
-OrderState::UNKNOWN # raises Ruby::Enum::Errors::UninitializedConstantError
+OrderState::UNKNOWN # raises RubyEnum::Enum::Errors::UninitializedConstantError
 OrderState.keys # [ :CREATED, :PAID ]
 OrderState.values # [ 'created', 'paid' ]
 OrderState.to_h # { :CREATED => 'created', :PAID => 'paid' }
@@ -63,7 +63,7 @@ Define enums, and reference them as class methods.
 
 ``` ruby
 class OrderState
-  include Ruby::Enum
+  include RubyEnum::Enum
 
   define :created, 'created'
   define :paid, 'paid'
@@ -85,7 +85,7 @@ The value is optional. If unspecified, the value will default to the key.
 
 ``` ruby
 class OrderState
-  include Ruby::Enum
+  include RubyEnum::Enum
 
   define :UNSPECIFIED
   define :unspecified
@@ -206,22 +206,22 @@ OrderState.key('failed')
 
 ### Duplicate enumerator keys or duplicate values
 
-Defining duplicate enums raises `Ruby::Enum::Errors::DuplicateKeyError`.
+Defining duplicate enums raises `RubyEnum::Enum::Errors::DuplicateKeyError`.
 
 ```ruby
 class OrderState
-  include Ruby::Enum
+  include RubyEnum::Enum
 
   define :CREATED, 'created'
   define :CREATED, 'recreated' # raises DuplicateKeyError
 end
 ```
 
-Defining a duplicate value raises `Ruby::Enum::Errors::DuplicateValueError`.
+Defining a duplicate value raises `RubyEnum::Enum::Errors::DuplicateValueError`.
 
 ```ruby
 class OrderState
-  include Ruby::Enum
+  include RubyEnum::Enum
 
   define :CREATED, 'created'
   define :RECREATED, 'created' # raises DuplicateValueError
@@ -232,11 +232,11 @@ The `DuplicateValueError` exception is raised to be consistent with the unique k
 
 ### Inheritance
 
-When inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well. Sub classes can also provide extra enums, as usual.
+When inheriting from a `RubyEnum::Enum` class, all defined enums in the parent class will be accessible in sub classes as well. Sub classes can also provide extra enums, as usual.
 
 ``` ruby
 class OrderState
-  include Ruby::Enum
+  include RubyEnum::Enum
 
   define :CREATED, 'CREATED'
   define :PAID, 'PAID'
@@ -264,16 +264,16 @@ ShippedOrderState.values # ['CREATED', 'PAID', 'PREPARED', SHIPPED']
 
 ### Exhaustive case matcher
 
-If you want to make sure that you cover all cases in a case stament, you can use the exhaustive case matcher: `Ruby::Enum::Case`. It will raise an error if a case/enum value is not handled, or if a value is specified that's not part of the enum. This is inspired by the [Rust Pattern Syntax](https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html). If multiple cases match, all matches are being executed. The return value is the value from the matched case, or an array of return values if multiple cases matched.
+If you want to make sure that you cover all cases in a case stament, you can use the exhaustive case matcher: `RubyEnum::Enum::Case`. It will raise an error if a case/enum value is not handled, or if a value is specified that's not part of the enum. This is inspired by the [Rust Pattern Syntax](https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html). If multiple cases match, all matches are being executed. The return value is the value from the matched case, or an array of return values if multiple cases matched.
 
 > NOTE: This will add checks at runtime which might lead to worse performance. See [benchmarks](#benchmarks).
 
-> NOTE: `:else` is a reserved keyword if you want to use `Ruby::Enum::Case`.
+> NOTE: `:else` is a reserved keyword if you want to use `RubyEnum::Enum::Case`.
 
 ```ruby
 class Color < OrderState
-  include Ruby::Enum
-  include Ruby::Enum::Case
+  include RubyEnum::Enum
+  include RubyEnum::Enum::Case
 
   define :RED, :red
   define :GREEN, :green

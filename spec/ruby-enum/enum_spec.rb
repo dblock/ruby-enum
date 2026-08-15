@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe Ruby::Enum do
+describe RubyEnum::Enum do
   class Colors
-    include Ruby::Enum
+    include RubyEnum::Enum
 
     define :RED, 'red'
     define :GREEN, 'green'
@@ -19,7 +19,7 @@ describe Ruby::Enum do
   end
 
   class OtherSecondSubclass < FirstSubclass
-    include Ruby::Enum
+    include RubyEnum::Enum
 
     define :MAGENTA, 'magenta'
   end
@@ -33,19 +33,19 @@ describe Ruby::Enum do
     it 'raises UninitializedConstantError on an invalid constant' do
       expect do
         Colors::ANYTHING
-      end.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /The constant Colors::ANYTHING has not been defined./
+      end.to raise_error RubyEnum::Enum::Errors::UninitializedConstantError, /The constant Colors::ANYTHING has not been defined./
     end
   end
 
   context 'when the i18n gem is not loaded' do
     before do
-      allow(described_class).to receive(:i18n).and_return(Ruby::Enum::I18nMock)
+      allow(described_class).to receive(:i18n).and_return(RubyEnum::Enum::I18nMock)
     end
 
     it 'raises UninitializedConstantError on an invalid constant' do
       expect do
         Colors::ANYTHING
-      end.to raise_error Ruby::Enum::Errors::UninitializedConstantError, /ruby.enum.errors.messages.uninitialized_constant.summary/
+      end.to raise_error RubyEnum::Enum::Errors::UninitializedConstantError, /ruby.enum.errors.messages.uninitialized_constant.summary/
     end
   end
 
@@ -197,13 +197,13 @@ describe Ruby::Enum do
           Colors.class_eval do
             define :RED, 'some'
           end
-        end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /The constant Colors::RED has already been defined./
+        end.to raise_error RubyEnum::Enum::Errors::DuplicateKeyError, /The constant Colors::RED has already been defined./
       end
     end
 
     context 'when the i18n gem is not loaded' do
       before do
-        allow(described_class).to receive(:i18n).and_return(Ruby::Enum::I18nMock)
+        allow(described_class).to receive(:i18n).and_return(RubyEnum::Enum::I18nMock)
       end
 
       it 'raises DuplicateKeyError' do
@@ -211,7 +211,7 @@ describe Ruby::Enum do
           Colors.class_eval do
             define :RED, 'some'
           end
-        end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /ruby.enum.errors.messages.duplicate_key.message/
+        end.to raise_error RubyEnum::Enum::Errors::DuplicateKeyError, /ruby.enum.errors.messages.duplicate_key.message/
       end
     end
   end
@@ -223,13 +223,13 @@ describe Ruby::Enum do
           Colors.class_eval do
             define :Other, 'red'
           end
-        end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /The value red has already been defined./
+        end.to raise_error RubyEnum::Enum::Errors::DuplicateValueError, /The value red has already been defined./
       end
     end
 
     context 'when the i18n gem is not loaded' do
       before do
-        allow(described_class).to receive(:i18n).and_return(Ruby::Enum::I18nMock)
+        allow(described_class).to receive(:i18n).and_return(RubyEnum::Enum::I18nMock)
       end
 
       it 'raises a DuplicateValueError' do
@@ -237,7 +237,7 @@ describe Ruby::Enum do
           Colors.class_eval do
             define :Other, 'red'
           end
-        end.to raise_error Ruby::Enum::Errors::DuplicateValueError, /ruby.enum.errors.messages.duplicate_value.summary/
+        end.to raise_error RubyEnum::Enum::Errors::DuplicateValueError, /ruby.enum.errors.messages.duplicate_value.summary/
       end
     end
   end
@@ -245,7 +245,7 @@ describe Ruby::Enum do
   describe 'Reloading enum definition' do
     it 'can be lazy reloaded' do
       class_body = proc do
-        include Ruby::Enum
+        include RubyEnum::Enum
 
         define :BUZZ_CUT, 'buzz_cut'
       end
@@ -256,9 +256,9 @@ describe Ruby::Enum do
     end
 
     context 'when a subclass is defined' do
-      it 'NEEDS to include Ruby::Enum explicitly to be lazy reloaded' do
+      it 'NEEDS to include RubyEnum::Enum explicitly to be lazy reloaded' do
         hair_styles = Class.new do
-          include Ruby::Enum
+          include RubyEnum::Enum
 
           define :BUZZ_CUT, 'buzz_cut'
         end
@@ -268,10 +268,10 @@ describe Ruby::Enum do
         end
         broken_subclass = Class.new(hair_styles, &broken_subclass_body)
         expect { broken_subclass.class_eval(&broken_subclass_body) }
-          .to raise_error Ruby::Enum::Errors::DuplicateKeyError, /PONYTAIL/
+          .to raise_error RubyEnum::Enum::Errors::DuplicateKeyError, /PONYTAIL/
 
         subclass_body = proc do
-          include Ruby::Enum
+          include RubyEnum::Enum
 
           define :PONYTAIL, 'ponytail'
         end
@@ -285,10 +285,10 @@ describe Ruby::Enum do
 
   describe 'Given a class that has not defined any enums' do
     class EmptyEnums
-      include Ruby::Enum
+      include RubyEnum::Enum
     end
     it do
-      expect { EmptyEnums::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+      expect { EmptyEnums::ORANGE }.to raise_error RubyEnum::Enum::Errors::UninitializedConstantError
     end
   end
 
@@ -311,7 +311,7 @@ describe Ruby::Enum do
     end
 
     it 'parent class should not have enums defined in child classes' do
-      expect { Colors::ORANGE }.to raise_error Ruby::Enum::Errors::UninitializedConstantError
+      expect { Colors::ORANGE }.to raise_error RubyEnum::Enum::Errors::UninitializedConstantError
     end
 
     context 'when defining a 2 level depth subclass' do
@@ -338,7 +338,7 @@ describe Ruby::Enum do
 
   describe 'default value' do
     class Default
-      include Ruby::Enum
+      include RubyEnum::Enum
 
       define :KEY
     end
@@ -350,7 +350,7 @@ describe Ruby::Enum do
 
   describe 'non constant definitions' do
     class States
-      include Ruby::Enum
+      include RubyEnum::Enum
 
       define :created, 'Created'
       define :published, 'Published'

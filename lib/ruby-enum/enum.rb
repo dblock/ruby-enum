@@ -20,8 +20,8 @@ module Ruby
 
       base.private_class_method(:new)
 
-      base.instance_variable_set(:@_enum_hash, {})
-      base.instance_variable_set(:@_enums_by_value, {})
+      base.instance_variable_set(:@_own_enum_hash, {})
+      base.instance_variable_set(:@_own_enums_by_value, {})
     end
 
     module ClassMethods
@@ -45,15 +45,15 @@ module Ruby
 
       def store_new_instance(key, value)
         new_instance = new(key, value)
-        _enum_hash[key] = new_instance
-        _enums_by_value[value] = new_instance
+        _own_enum_hash[key] = new_instance
+        _own_enums_by_value[value] = new_instance
       end
 
       def const_missing(key)
         raise Ruby::Enum::Errors::UninitializedConstantError, name: name, key: key
       end
 
-      # Iterate over all enumerated values.
+      # Iterate over all enumerated values, including those defined in a superclass.
       # Required for Enumerable mixin
       def each(&block)
         _enum_hash.each(&block)
@@ -74,7 +74,7 @@ module Ruby
         nil
       end
 
-      # Whether the specified key exists in this enum.
+      # Whether the specified key exists in this enum, including those defined in a superclass.
       #
       # === Parameters
       # [k] The string key to check.
@@ -84,7 +84,7 @@ module Ruby
         _enum_hash.key?(k)
       end
 
-      # Gets the string value for the specified key.
+      # Gets the string value for the specified key, including those defined in a superclass.
       #
       # === Parameters
       # [k] The key symbol to get the value for.
@@ -95,7 +95,7 @@ module Ruby
         enum&.value
       end
 
-      # Whether the specified value exists in this enum.
+      # Whether the specified value exists in this enum, including those defined in a superclass.
       #
       # === Parameters
       # [k] The string value to check.
@@ -105,7 +105,7 @@ module Ruby
         _enums_by_value.key?(v)
       end
 
-      # Gets the key symbol for the specified value.
+      # Gets the key symbol for the specified value, including those defined in a superclass.
       #
       # === Parameters
       # [v] The string value to parse.
@@ -116,14 +116,14 @@ module Ruby
         enum&.key
       end
 
-      # Returns all enum keys.
+      # Returns all enum keys, including those defined in a superclass.
       def keys
         _enum_hash.values.map(&:key)
       end
 
       # Returns all enum values.
       def values
-        result = _enum_hash.values.map(&:value)
+        result = _own_enum_hash.values.map(&:value)
 
         if superclass < Ruby::Enum
           superclass.values + result
@@ -132,7 +132,7 @@ module Ruby
         end
       end
 
-      # Iterate over all enumerated values.
+      # Iterate over all enumerated values, including those defined in a superclass.
       # Required for Enumerable mixin
       def each_value(&_block)
         _enum_hash.each_value do |v|
@@ -140,7 +140,7 @@ module Ruby
         end
       end
 
-      # Iterate over all enumerated keys.
+      # Iterate over all enumerated keys, including those defined in a superclass.
       # Required for Enumerable mixin
       def each_key(&_block)
         _enum_hash.each_value do |v|
@@ -148,6 +148,7 @@ module Ruby
         end
       end
 
+      # Returns a hash of key:values, including those defined in a superclass.
       def to_h
         _enum_hash.transform_values(&:value)
       end
@@ -157,15 +158,37 @@ module Ruby
       # Returns this class' own enum hash, defaulting to an empty hash.
       #
       # A subclass that does not `define` any of its own enums does not have
-      # its `@_enum_hash` instance variable set, since it's only initialized
+      # its `@_own_enum_hash` instance variable set, since it's only initialized
       # in `define` and in the `included` hook.
-      def _enum_hash
-        @_enum_hash ||= {}
+      def _own_enum_hash
+        @_own_enum_hash ||= {}
       end
 
       # Returns this class' own enums-by-value hash, defaulting to an empty hash.
+      def _own_enums_by_value
+        @_own_enums_by_value ||= {}
+      end
+
+      # Returns the enum hash for this class merged with all of its superclasses,
+      # with keys defined in this class taking precedence over those inherited
+      # from a superclass.
+      def _enum_hash
+        if superclass < Ruby::Enum
+          superclass.send(:_enum_hash).merge(_own_enum_hash)
+        else
+          _own_enum_hash
+        end
+      end
+
+      # Returns the enums-by-value hash for this class merged with all of its
+      # superclasses, with values defined in this class taking precedence over
+      # those inherited from a superclass.
       def _enums_by_value
-        @_enums_by_value ||= {}
+        if superclass < Ruby::Enum
+          superclass.send(:_enums_by_value).merge(_own_enums_by_value)
+        else
+          _own_enums_by_value
+        end
       end
 
       def upper?(s)
@@ -173,13 +196,13 @@ module Ruby
       end
 
       def validate_key!(key)
-        return unless _enum_hash.key?(key)
+        return unless _own_enum_hash.key?(key)
 
         raise Ruby::Enum::Errors::DuplicateKeyError, name: name, key: key
       end
 
       def validate_value!(value)
-        return unless _enums_by_value.key?(value)
+        return unless _own_enums_by_value.key?(value)
 
         raise Ruby::Enum::Errors::DuplicateValueError, name: name, value: value
       end

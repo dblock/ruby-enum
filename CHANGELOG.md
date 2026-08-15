@@ -1,3 +1,7 @@
+### 1.2.1 (Next)
+
+* Your contribution here.
+
 ### 1.2.0 (2026/8/14)
 
 * [#49](https://github.com/dblock/ruby-enum/issues/49): Fixed `NoMethodError` on `keys`, `values`, `key?`, `value?`, `key`, `value`, `to_h`, `parse` and `each` when a subclass defines no enums of its own - [@dblock](https://github.com/dblock).

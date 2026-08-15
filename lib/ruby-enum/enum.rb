@@ -47,6 +47,9 @@ module Ruby
         new_instance = new(key, value)
         _own_enum_hash[key] = new_instance
         _own_enums_by_value[value] = new_instance
+
+        # Invalidate memoized, merged hashes since this class' own enums changed.
+        @_enum_hash = @_enums_by_value = nil
       end
 
       def const_missing(key)
@@ -173,22 +176,22 @@ module Ruby
       # with keys defined in this class taking precedence over those inherited
       # from a superclass.
       def _enum_hash
-        if superclass < Ruby::Enum
-          superclass.send(:_enum_hash).merge(_own_enum_hash)
-        else
-          _own_enum_hash
-        end
+        @_enum_hash ||= if superclass < Ruby::Enum
+                          superclass.send(:_enum_hash).merge(_own_enum_hash)
+                        else
+                          _own_enum_hash
+                        end
       end
 
       # Returns the enums-by-value hash for this class merged with all of its
       # superclasses, with values defined in this class taking precedence over
       # those inherited from a superclass.
       def _enums_by_value
-        if superclass < Ruby::Enum
-          superclass.send(:_enums_by_value).merge(_own_enums_by_value)
-        else
-          _own_enums_by_value
-        end
+        @_enums_by_value ||= if superclass < Ruby::Enum
+                               superclass.send(:_enums_by_value).merge(_own_enums_by_value)
+                             else
+                               _own_enums_by_value
+                             end
       end
 
       def upper?(s)

@@ -335,7 +335,8 @@ gem "i18n"
 Benchmark scripts are defined in the [`benchmarks`](benchmarks) folder and can be run with Rake:
 
 ```console
-rake benchmarks:case
+rake benchmark:case
+rake benchmark:inheritance
 ```
 
 ## Contributing

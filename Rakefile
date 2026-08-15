@@ -22,4 +22,9 @@ namespace :benchmark do
   task :case do
     require_relative 'benchmarks/case'
   end
+
+  desc 'Run benchmark for enum lookups on classes with inheritance'
+  task :inheritance do
+    require_relative 'benchmarks/inheritance'
+  end
 end

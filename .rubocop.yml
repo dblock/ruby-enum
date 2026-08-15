@@ -8,6 +8,9 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
 
+Metrics/ModuleLength:
+  Enabled: false
+
 RSpec/SpecFilePathFormat:
   Enabled: false
 

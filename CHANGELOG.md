@@ -1,3 +1,7 @@
+### 1.2.2 (Next)
+
+* Your contribution here.
+
 ### 1.2.1 (2026/08/15)
 
 * [#62](https://github.com/dblock/ruby-enum/issues/62): Fixed `values`, `value?` and `key` to not return a superclass' overridden value when a subclass redefines a key, matching the behavior of `to_h` and other methods - [@dblock](https://github.com/dblock).

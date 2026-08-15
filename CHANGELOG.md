@@ -3,13 +3,13 @@
 * [#62](https://github.com/dblock/ruby-enum/issues/62): Fixed `values`, `value?` and `key` to not return a superclass' overridden value when a subclass redefines a key, matching the behavior of `to_h` and other methods - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
-### 1.2.0 (2026/8/14)
+### 1.2.0 (2026/08/14)
 
 * [#49](https://github.com/dblock/ruby-enum/issues/49): Fixed `NoMethodError` on `keys`, `values`, `key?`, `value?`, `key`, `value`, `to_h`, `parse` and `each` when a subclass defines no enums of its own - [@dblock](https://github.com/dblock).
 * [#49](https://github.com/dblock/ruby-enum/issues/49): `keys`, `key?`, `value?`, `key`, `value`, `to_h`, `parse` and `each` now include enums defined in a superclass, matching the existing behavior of `values` - [@dblock](https://github.com/dblock).
 * [#61](https://github.com/dblock/ruby-enum/pull/61): Document performance overhead in README, add `rake benchmark:basic` - [@dblock](https://github.com/dblock).
 
-### 1.1.0 (2026/6/20)
+### 1.1.0 (2026/06/20)
 
 * [#56](https://github.com/dblock/ruby-enum/pull/56): Fix `DuplicateKeyError` when the enum class is reloaded - [@flvrone](https://github.com/flvrone).
 * [#54](https://github.com/dblock/ruby-enum/pull/54): Add support for Ruby 4.0 - [@dblock](https://github.com/dblock).

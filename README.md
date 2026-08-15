@@ -357,7 +357,7 @@ You're encouraged to contribute to ruby-enum. See [CONTRIBUTING](CONTRIBUTING.md
 
 ## Copyright and License
 
-Copyright (c) 2013-2021, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
+Copyright (c) 2013-2026, Daniel Doubrovkine and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
 

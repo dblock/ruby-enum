@@ -27,6 +27,10 @@ describe Ruby::Enum do
   class SubclassWithNoOwnDefines < Colors
   end
 
+  class SubclassRedefiningParentKey < Colors
+    define :RED, 'crimson'
+  end
+
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -66,6 +70,13 @@ describe Ruby::Enum do
       expect(enum_keys).to eq %i[RED GREEN]
       expect(enum_values).to eq %w[red green]
     end
+
+    context 'when a subclass defines its own enums' do
+      it 'iterates over the enums defined in the parent class too' do
+        keys = FirstSubclass.map { |key, _enum| key }
+        expect(keys).to eq %i[RED GREEN ORANGE]
+      end
+    end
   end
 
   describe '#map' do
@@ -95,6 +106,12 @@ describe Ruby::Enum do
     it 'returns nil for an invalid value' do
       expect(Colors.parse('invalid')).to be_nil
     end
+
+    context 'when a subclass defines its own enums' do
+      it 'parses a value defined in the parent class' do
+        expect(FirstSubclass.parse('red')).to eq('red')
+      end
+    end
   end
 
   describe '#key?' do
@@ -113,6 +130,12 @@ describe Ruby::Enum do
     it 'returns false for invalid keys' do
       expect(Colors.key?(:NOT_A_KEY)).to be(false)
     end
+
+    context 'when a subclass defines its own enums' do
+      it 'returns true for keys inherited from the parent class' do
+        expect(FirstSubclass.key?(:RED)).to be(true)
+      end
+    end
   end
 
   describe '#value' do
@@ -124,6 +147,12 @@ describe Ruby::Enum do
 
     it 'returns nil for an invalid key' do
       expect(Colors.value(:NOT_A_KEY)).to be_nil
+    end
+
+    context 'when a subclass defines its own enums' do
+      it 'returns the value for a key inherited from the parent class' do
+        expect(FirstSubclass.value(:RED)).to eq('red')
+      end
     end
   end
 
@@ -143,6 +172,12 @@ describe Ruby::Enum do
     it 'returns false for invalid values' do
       expect(Colors.value?('I am not a value')).to be(false)
     end
+
+    context 'when a subclass defines its own enums' do
+      it 'returns true for values inherited from the parent class' do
+        expect(FirstSubclass.value?('red')).to be(true)
+      end
+    end
   end
 
   describe '#key' do
@@ -155,11 +190,23 @@ describe Ruby::Enum do
     it 'returns nil for an invalid value' do
       expect(Colors.key('invalid')).to be_nil
     end
+
+    context 'when a subclass defines its own enums' do
+      it 'returns the key for a value inherited from the parent class' do
+        expect(FirstSubclass.key('red')).to eq(:RED)
+      end
+    end
   end
 
   describe '#keys' do
     it 'returns keys' do
       expect(Colors.keys).to eq(%i[RED GREEN])
+    end
+
+    context 'when a subclass defines its own enums' do
+      it 'includes keys from the parent class' do
+        expect(FirstSubclass.keys).to eq(%i[RED GREEN ORANGE])
+      end
     end
   end
 
@@ -196,6 +243,12 @@ describe Ruby::Enum do
   describe '#to_h' do
     it 'returns a hash of key:values' do
       expect(Colors.to_h).to eq(RED: 'red', GREEN: 'green')
+    end
+
+    context 'when a subclass defines its own enums' do
+      it 'includes key:values from the parent class' do
+        expect(FirstSubclass.to_h).to eq(RED: 'red', GREEN: 'green', ORANGE: 'orange')
+      end
     end
   end
 
@@ -354,15 +407,46 @@ describe Ruby::Enum do
         expect(SubclassWithNoOwnDefines.values).to eq(%w[red green])
       end
 
-      it 'does not raise when calling keys, key?, value?, key, value, to_h, parse or each' do
-        expect(SubclassWithNoOwnDefines.keys).to eq([])
-        expect(SubclassWithNoOwnDefines.key?(:RED)).to be false
-        expect(SubclassWithNoOwnDefines.value?('red')).to be false
-        expect(SubclassWithNoOwnDefines.key('red')).to be_nil
-        expect(SubclassWithNoOwnDefines.value(:RED)).to be_nil
-        expect(SubclassWithNoOwnDefines.to_h).to eq({})
-        expect(SubclassWithNoOwnDefines.parse('red')).to be_nil
-        expect(SubclassWithNoOwnDefines.each.to_a).to eq([])
+      it 'inherits the parent class enums for keys, key?, value?, key, value, to_h, parse and each' do
+        expect(SubclassWithNoOwnDefines.keys).to eq(%i[RED GREEN])
+        expect(SubclassWithNoOwnDefines.key?(:RED)).to be true
+        expect(SubclassWithNoOwnDefines.value?('red')).to be true
+        expect(SubclassWithNoOwnDefines.key('red')).to eq :RED
+        expect(SubclassWithNoOwnDefines.value(:RED)).to eq 'red'
+        expect(SubclassWithNoOwnDefines.to_h).to eq(RED: 'red', GREEN: 'green')
+        expect(SubclassWithNoOwnDefines.parse('red')).to eq 'red'
+        expect(SubclassWithNoOwnDefines.each.map { |key, _enum| key }).to eq(%i[RED GREEN])
+      end
+    end
+
+    context 'when a subclass redefines a key already used by a parent class' do
+      it 'does not raise a duplicate key error' do
+        expect(SubclassRedefiningParentKey::RED).to eq 'crimson'
+      end
+
+      it "the subclass' own value takes precedence" do
+        expect(SubclassRedefiningParentKey.value(:RED)).to eq 'crimson'
+      end
+
+      it "the subclass' own value is used in to_h" do
+        expect(SubclassRedefiningParentKey.to_h).to eq(RED: 'crimson', GREEN: 'green')
+      end
+
+      it 'includes both the parent and its own redefined value in values' do
+        expect(SubclassRedefiningParentKey.values).to eq(%w[red green crimson])
+      end
+
+      it "the parent class' own value is unaffected" do
+        expect(Colors::RED).to eq 'red'
+        expect(Colors.value(:RED)).to eq 'red'
+      end
+
+      it 'still allows the parent class to raise a duplicate key error for its own re-definitions' do
+        expect do
+          Colors.class_eval do
+            define :RED, 'red'
+          end
+        end.to raise_error Ruby::Enum::Errors::DuplicateKeyError, /RED/
       end
     end
   end

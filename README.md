@@ -232,7 +232,7 @@ The `DuplicateValueError` exception is raised to be consistent with the unique k
 
 ### Inheritance
 
-When inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in sub classes as well. Sub classes can also provide extra enums, as usual.
+When inheriting from a `Ruby::Enum` class, all defined enums in the parent class will be accessible in subclasses as well. Subclasses can also provide extra enums, as usual.
 
 ``` ruby
 class OrderState
@@ -260,6 +260,26 @@ The `values` class method will enumerate the values from all base classes.
 ``` ruby
 OrderState.values # ['CREATED', 'PAID']
 ShippedOrderState.values # ['CREATED', 'PAID', 'PREPARED', SHIPPED']
+```
+
+All other enumerating and hashing methods (`keys`, `key?`, `value?`, `key`, `value`, `to_h`, `parse` and `each`) also consider enums defined anywhere in the class hierarchy.
+
+``` ruby
+ShippedOrderState.keys # [:CREATED, :PAID, :PREPARED, :SHIPPED]
+ShippedOrderState.key?(:CREATED) # true
+ShippedOrderState.value(:CREATED) # 'CREATED'
+```
+
+A subclass may redefine a key or value already used by a parent class without raising `DuplicateKeyError` or `DuplicateValueError`; its own definition takes precedence.
+
+``` ruby
+class ShippedOrderState < OrderState
+  define :CREATED, 'RECREATED' # does not raise, overrides the parent class' definition
+end
+
+ShippedOrderState::CREATED # 'RECREATED'
+ShippedOrderState.value(:CREATED) # 'RECREATED'
+OrderState.value(:CREATED) # 'CREATED', unaffected
 ```
 
 ### Exhaustive case matcher

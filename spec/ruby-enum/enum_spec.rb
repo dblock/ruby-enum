@@ -432,8 +432,15 @@ describe Ruby::Enum do
         expect(SubclassRedefiningParentKey.to_h).to eq(RED: 'crimson', GREEN: 'green')
       end
 
-      it 'includes both the parent and its own redefined value in values' do
-        expect(SubclassRedefiningParentKey.values).to eq(%w[red green crimson])
+      it "does not include the parent's overridden value, only its own redefined value, in values" do
+        expect(SubclassRedefiningParentKey.values).to eq(%w[crimson green])
+      end
+
+      it "does not recognize the parent's overridden value via value? or key" do
+        expect(SubclassRedefiningParentKey.value?('red')).to be false
+        expect(SubclassRedefiningParentKey.key('red')).to be_nil
+        expect(SubclassRedefiningParentKey.value?('crimson')).to be true
+        expect(SubclassRedefiningParentKey.key('crimson')).to eq :RED
       end
 
       it "the parent class' own value is unaffected" do

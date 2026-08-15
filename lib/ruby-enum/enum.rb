@@ -124,15 +124,9 @@ module Ruby
         _enum_hash.values.map(&:key)
       end
 
-      # Returns all enum values.
+      # Returns all enum values, including those defined in a superclass.
       def values
-        result = _own_enum_hash.values.map(&:value)
-
-        if superclass < Ruby::Enum
-          superclass.values + result
-        else
-          result
-        end
+        _enum_hash.values.map(&:value)
       end
 
       # Iterate over all enumerated values, including those defined in a superclass.
@@ -186,12 +180,16 @@ module Ruby
       # Returns the enums-by-value hash for this class merged with all of its
       # superclasses, with values defined in this class taking precedence over
       # those inherited from a superclass.
+      #
+      # Derived from _enum_hash (keyed by key) rather than merged directly by
+      # value, so that a superclass' stale value for a key overridden in this
+      # class doesn't linger, e.g. when a subclass redefines a key with a new
+      # value, the superclass' old value should no longer be found via value?
+      # or key.
       def _enums_by_value
-        @_enums_by_value ||= if superclass < Ruby::Enum
-                               superclass.send(:_enums_by_value).merge(_own_enums_by_value)
-                             else
-                               _own_enums_by_value
-                             end
+        @_enums_by_value ||= _enum_hash.each_with_object({}) do |(_key, enum), hash|
+          hash[enum.value] = enum
+        end
       end
 
       def upper?(s)

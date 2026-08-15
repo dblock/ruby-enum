@@ -18,6 +18,11 @@ RuboCop::RakeTask.new(:rubocop)
 task default: %i[rubocop spec]
 
 namespace :benchmark do
+  desc 'Run benchmark for basic Ruby::Enum operations vs. plain Ruby equivalents'
+  task :basic do
+    require_relative 'benchmarks/basic'
+  end
+
   desc 'Run benchmark for the Ruby::Enum::Case'
   task :case do
     require_relative 'benchmarks/case'

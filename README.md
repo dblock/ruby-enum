@@ -27,6 +27,7 @@ Enum-like behavior for Ruby, heavily inspired by [this](http://www.rubyfleebie.c
   - [Exhaustive case matcher](#exhaustive-case-matcher)
   - [I18n support](#i18n-support)
 - [Benchmarks](#benchmarks)
+  - [Performance](#performance)
 - [Contributing](#contributing)
 - [Copyright and License](#copyright-and-license)
 - [Related Projects](#related-projects)
@@ -335,9 +336,20 @@ gem "i18n"
 Benchmark scripts are defined in the [`benchmarks`](benchmarks) folder and can be run with Rake:
 
 ```console
+rake benchmark:basic
 rake benchmark:case
 rake benchmark:inheritance
 ```
+
+### Performance
+
+Constant access (e.g. `Colors::RED`) has no measurable overhead versus a plain Ruby constant, since it's just a constant lookup either way. Basic operations backed by a hash lookup - `value`, `key`, `key?`, `value?`, `keys`, `values` - carry some overhead (roughly 3-5x) compared to using a plain `Hash` directly, due to the extra method dispatch and object wrapping `Ruby::Enum` does internally. Run `rake benchmark:basic` to measure this on your own machine.
+
+This overhead is constant regardless of how deep a subclass hierarchy is - `keys`, `key?`, `value?`, `key`, `value`, `to_h`, `parse` and `each` merge and memoize enums inherited from superclasses, so a subclass' lookups are effectively as fast as the base class' (see `rake benchmark:inheritance`).
+
+The one notable exception is `Ruby::Enum::Case`, whose exhaustive `case`-like matcher is significantly slower (on the order of 50-100x, see `rake benchmark:case`) than a native Ruby `case`/`when` statement, since it builds and evaluates lambdas on every call rather than being optimized by the Ruby VM. Prefer a native `case` statement in hot code paths and reserve `Ruby::Enum::Case` for cases where its exhaustiveness check is worth the overhead.
+
+For most applications this overhead is negligible in absolute terms (low single-digit microseconds per call), but it's worth being aware of in very hot code paths.
 
 ## Contributing
 

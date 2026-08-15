@@ -24,6 +24,9 @@ describe Ruby::Enum do
     define :MAGENTA, 'magenta'
   end
 
+  class SubclassWithNoOwnDefines < Colors
+  end
+
   it 'returns an enum value' do
     expect(Colors::RED).to eq 'red'
     expect(Colors::GREEN).to eq 'green'
@@ -182,6 +185,12 @@ describe Ruby::Enum do
         expect(OtherSecondSubclass.values).to eq(%w[red green orange magenta])
       end
     end
+
+    context 'when a subclass defines no enums of its own' do
+      it 'returns the values from the parent class' do
+        expect(SubclassWithNoOwnDefines.values).to eq(%w[red green])
+      end
+    end
   end
 
   describe '#to_h' do
@@ -332,6 +341,28 @@ describe Ruby::Enum do
     describe '#values' do
       it 'contains the values from the parent class' do
         expect(FirstSubclass.values).to eq(%w[red green orange])
+      end
+    end
+
+    context 'when a subclass defines no enums of its own (issue #49)' do
+      it 'inherits the parent class enums via constants' do
+        expect(SubclassWithNoOwnDefines::RED).to eq 'red'
+        expect(SubclassWithNoOwnDefines::GREEN).to eq 'green'
+      end
+
+      it 'inherits the parent class values' do
+        expect(SubclassWithNoOwnDefines.values).to eq(%w[red green])
+      end
+
+      it 'does not raise when calling keys, key?, value?, key, value, to_h, parse or each' do
+        expect(SubclassWithNoOwnDefines.keys).to eq([])
+        expect(SubclassWithNoOwnDefines.key?(:RED)).to be false
+        expect(SubclassWithNoOwnDefines.value?('red')).to be false
+        expect(SubclassWithNoOwnDefines.key('red')).to be_nil
+        expect(SubclassWithNoOwnDefines.value(:RED)).to be_nil
+        expect(SubclassWithNoOwnDefines.to_h).to eq({})
+        expect(SubclassWithNoOwnDefines.parse('red')).to be_nil
+        expect(SubclassWithNoOwnDefines.each.to_a).to eq([])
       end
     end
   end

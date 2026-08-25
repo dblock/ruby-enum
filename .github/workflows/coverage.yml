@@ -1,7 +1,7 @@
 ---
 name: Coverage
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -15,5 +15,8 @@ jobs:
         bundler-cache: true
     - name: Build and test with RSpec
       run: bundle exec rspec
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+    - name: Report coverage to Coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: coverage/lcov.info

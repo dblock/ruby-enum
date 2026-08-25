@@ -1,5 +1,6 @@
 ### 1.2.2 (Next)
 
+* [#65](https://github.com/dblock/ruby-enum/pull/65): Fixed coverage reporting to Coveralls not running on pull requests by switching from `coveralls_reborn`/`COVERALLS_REPO_TOKEN` to `coverallsapp/github-action`/`GITHUB_TOKEN` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 1.2.1 (2026/08/15)
